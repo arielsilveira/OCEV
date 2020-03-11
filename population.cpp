@@ -59,31 +59,27 @@ public:
     }
 
     int dist_int_perm(int max){
-        map<int, bool> mapa;
+        for(int i = 0; i < population.size(); i++){
+            for(int j = 0; j < population[i].size(); j++){
+                population[i][j] = j;
+            }
+        }
 
 
         for (int i = 0; i < population.size(); i++){
-
-            for(int k = 0; k < max; k++){
-                mapa[k] = false;
-            }
-            
             for (int j = 0; j < population[i].size(); j++){
-                int random = dist_int(0, max-1);
-                bool result = mapa[random];
+                int r = dist_int(0, max-1);
 
-                while(result){
-                    random = dist_int(0, max-1);
-                    result = mapa[random];
-                }
-
-                mapa[random] = true;
-                population[i][j] = random;
+                int temp = population[i][j];
+                population[i][j] = population[i][r];
+                population[i][r] = temp;
             }
         }
 
         return 0;
     }
+
+
 
 
 };
