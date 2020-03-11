@@ -2,8 +2,7 @@
 
 using namespace std;
 
-class NaturalSelection
-{
+class NaturalSelection{
 private:
     vector<vector<int> > population;
     int individual;
@@ -18,7 +17,10 @@ public:
 
         for (int i = 0; i < population.size(); i++){
             for (int j = 0; j < population[i].size(); j++){
-                population[i][j] = dist_int_perm(9);
+                // population[i][j] = dist_int_perm(chromossomo - 1);
+                // population[i][j] = dist_int(5, chromossomo - 1);
+                population[i][j] = dist_bin();
+                // population[i][j] = dist_real(0,1);
             }
         }
 
@@ -39,7 +41,7 @@ public:
 
         return g_dist(g_e);
     }
-    
+
     double dist_real(double x, double y){
         random_device g_rd;
         mt19937 g_e(g_rd());
@@ -47,7 +49,7 @@ public:
 
         return g_dist(g_e);
     }
-    
+
     void print_population(){
         for (int i = 0; i < population.size(); i++){
             for (int j = 0; j < population[i].size(); j++){
@@ -55,10 +57,18 @@ public:
             }
             cout << endl;
         }
-        
+
     }
 
-    int dist_int_perm(int max){
+    void print_individual(int ind){
+        for (size_t i = 0; i < population.size(); i++) {
+            cout << population[ind][i] << " ";
+        }
+
+        cout << endl;
+    }
+
+    void dist_int_perm(int max){
         for(int i = 0; i < population.size(); i++){
             for(int j = 0; j < population[i].size(); j++){
                 population[i][j] = j;
@@ -75,8 +85,6 @@ public:
                 population[i][r] = temp;
             }
         }
-
-        return 0;
     }
 
 
@@ -85,12 +93,12 @@ public:
 };
 
 int main(int argc, char const *argv[]){
-    
+
     NaturalSelection *selection;
     selection = new NaturalSelection(0, 10, 10);
 
     selection -> print_population();
-
-
+    cout << endl;
+    selection -> print_individual(5);
     return 0;
 }
