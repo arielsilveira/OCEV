@@ -50,6 +50,28 @@ public:
         return g_dist(g_e);
     }
 
+
+    void dist_int_perm(int max){
+        for(int i = 0; i < population.size(); i++){
+            for(int j = 0; j < population[i].size(); j++){
+                population[i][j] = j;
+            }
+        }
+
+
+        for (int i = 0; i < population.size(); i++){
+            for (int j = 0; j < population[i].size(); j++){
+                int r = dist_int(0, max);
+
+                int temp = population[i][j];
+                population[i][j] = population[i][r];
+                population[i][r] = temp;
+            }
+        }
+    }
+
+
+
     void print_population(){
         for (int i = 0; i < population.size(); i++){
             for (int j = 0; j < population[i].size(); j++){
@@ -67,28 +89,6 @@ public:
 
         cout << endl;
     }
-
-    void dist_int_perm(int max){
-        for(int i = 0; i < population.size(); i++){
-            for(int j = 0; j < population[i].size(); j++){
-                population[i][j] = j;
-            }
-        }
-
-
-        for (int i = 0; i < population.size(); i++){
-            for (int j = 0; j < population[i].size(); j++){
-                int r = dist_int(0, max-1);
-
-                int temp = population[i][j];
-                population[i][j] = population[i][r];
-                population[i][r] = temp;
-            }
-        }
-    }
-
-
-
 
 };
 
