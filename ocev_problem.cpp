@@ -135,7 +135,8 @@ int main(int argc, char const *argv[]){
     }
 
     for (int i = 0; i < individual; i++){
-        population[i]->print_individual();
+        cout << "Indivíduo " << i << ": ";
+        population[i] -> print_individual();
     }
 
     vector<int> solutions(individual, 0); 
