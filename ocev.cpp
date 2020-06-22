@@ -113,11 +113,11 @@ public:
             }
         }
 
-        if(collision >= 2){
-            return collision - 1;
-        }
+        // if(collision >= 2){
+        //     return collision - 1;
+        // }
 
-        return 0;
+        return collision;
     }
 
 };
