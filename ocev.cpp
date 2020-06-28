@@ -107,7 +107,7 @@ public:
 
     int fitness(){
         int collision = 0, total = 0;
-        
+
         for(int i = 0; i < max_chromosomo; i++){
             for(int k = 0; k < max_chromosomo; k++){
                 if(i != k){
@@ -123,6 +123,7 @@ public:
     }
 
     void print_individual_total(){
+        
         for(int i = 0; i < max_chromosomo; i++){
             for(int j = 0; j < max_chromosomo; j++){
                 if(chromossomo[i] == j){
