@@ -108,17 +108,38 @@ public:
     int fitness(){
         int collision = 0, total = 0;
         for(int i = 0; i < max_chromosomo; i++){
-            if(chromossomo[i] == i ){
-                collision++;
+            for(int k = 0; k < max_chromosomo; k++){
+                if(i != k){
+                    if(abs(chromossomo[i] - chromossomo[k]) == abs(i - k)){
+                        collision++;
+                    }
+                }
+
             }
         }
 
         // if(collision >= 2){
-        //     return collision - 1;
+        //     return collision;
         // }
 
         return collision;
     }
+
+    void print_individual_total(){
+        for(int i = 0; i < max_chromosomo; i++){
+            for(int j = 0; j < max_chromosomo; j++){
+                // cout << chromossomo[i] << " " << i <<  " " << j; 
+                if(chromossomo[i] == j){
+                    cout << setprecision(2) << " Q " << " "; 
+                }else{
+                    cout << setprecision(2) << " . " << " ";
+                }
+            }
+
+            cout << endl << endl;
+        }
+    }
+    
 
 };
 
@@ -140,19 +161,23 @@ int main(int argc, char const *argv[]){
     }
 
     vector<int> solutions(individual, 0); 
-
+    
 
     for(int i = 0; i < individual; i++){
         solutions[i] = population[i] -> fitness();
     }
 
-    int val_best = individual;
+    for(int i = 0; i < solutions.size(); i++){
+        cout << solutions[i] << " ";
+    }
+
+    cout << endl;
+    int val_best = solutions[0];
     int index_best = -1;
     
-    int val_worse = 0;
+    int val_worse = solutions[0];
     int index_worse = 0;
     
-
     for (int i = 0; i < individual; i++){
         if(solutions[i] < val_best){
             val_best = solutions[i];
@@ -167,15 +192,17 @@ int main(int argc, char const *argv[]){
     cout << endl;
     
     cout << "Melhor indivíduo " << index_best << endl;
-    cout << "Total de colisão: " << val_best << endl;
+    cout << "Valor fitness: " << val_best << endl;
 
     population[index_best] -> print_individual();
+    population[index_best] -> print_individual_total();
     cout << endl;
 
     cout << "Pior indivíduo " << index_worse << endl;
-    cout << "Total de colisão: " << val_worse << endl;
+    cout << "Valor fitness: " << val_worse << endl;
 
     population[index_worse] -> print_individual();
+    population[index_worse] -> print_individual_total();
 
     return 0;
 }
