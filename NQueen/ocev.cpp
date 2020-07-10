@@ -36,6 +36,7 @@ public:
             }
         
         }else if (cod == "int-perm"){
+
             auto dist = [](vector<double> &c, int min, int max) -> void{
                 for (int i = 0; i < c.size(); i++){
                     c[i] = i;
@@ -80,18 +81,18 @@ public:
                 random_device g_rd;
                 mt19937 g_e(g_rd());
                 uniform_real_distribution<> g_dist(min, max);
-
+            
                 return g_dist(g_e);
             };
-            
+
             for (int i = 0; i < max_chromosomo; i++){
                 chromossomo[i] = dist(min, max);
             }
-
+        
         }else{
             cout << "Erro na passagem de cod" << endl;
             exit(0);
-
+        
         }
 
     }
@@ -123,7 +124,7 @@ public:
     }
 
     void print_individual_total(){
-        
+
         for(int i = 0; i < max_chromosomo; i++){
             for(int j = 0; j < max_chromosomo; j++){
                 if(chromossomo[i] == j){
