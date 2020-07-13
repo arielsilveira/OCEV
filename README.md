@@ -1,5 +1,12 @@
-Repositório no qual consiste as atividades e trabalhos da disciplina de OCEV
+## Repositório no qual consiste as atividades e trabalhos da disciplina de OCEV
 
-Dupla:
+**Dupla:**
     Ariel Agne da Silveira,
     Eduarda Cristina Rosa
+
+**Implementar: Rotinas de seleção**
+    - [ ] Roleta sem reposição; (A cada par garante-se a não repetição de itens selecionados)
+    - [ ] Torneio estocástico; (Parâmetros K e KP)
+    - [ ] Vizinhança linear (anel). (Parâmetros D (distância) e critério de seleção dentro da vizinhança, melhor fitness, fitness proporcional e aleatório)
+
+Todos devem contem o parâmetro de seleção elitista, ou seja, retira-se o pior individuo da geração atual e no lugar dele deve-se inserir o melhor indivíduo da geração anterior. 
