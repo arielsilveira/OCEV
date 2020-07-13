@@ -6,13 +6,13 @@
 
 **Implementar: Rotinas de seleção**
    
-    - [ ] Roleta sem reposição; (A cada par garante-se a não repetição de itens selecionados)
+    * Roleta sem reposição; (A cada par garante-se a não repetição de itens selecionados)
 
-    - [ ] Torneio estocástico; (Parâmetros K e KP)
+    * Torneio estocástico; (Parâmetros K e KP)
 
-    - [ ] Vizinhança linear (anel); (Parâmetros D (distância) e critério de seleção dentro da vizinhança, melhor fitness, fitness proporcional e aleatório)
+    * Vizinhança linear (anel); (Parâmetros D (distância) e critério de seleção dentro da vizinhança, melhor fitness, fitness proporcional e aleatório)
 
-    - [ ] Parâmetro de seleção elitista. (Booleano)
+    * Parâmetro de seleção elitista. (Booleano)
 
 
 Deve conter o parâmetro de seleção elitista, ou seja, retira-se o pior individuo da geração atual e no lugar dele deve-se inserir o melhor indivíduo da geração anterior. (ParÂmetro booleano)
