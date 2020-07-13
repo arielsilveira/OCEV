@@ -6,8 +6,11 @@
 
 **Implementar: Rotinas de seleção**
     - [ ] Roleta sem reposição; (A cada par garante-se a não repetição de itens selecionados)
+
     - [ ] Torneio estocástico; (Parâmetros K e KP)
+
     - [ ] Vizinhança linear (anel); (Parâmetros D (distância) e critério de seleção dentro da vizinhança, melhor fitness, fitness proporcional e aleatório)
+    
     - [ ] Parâmetro de seleção elitista. (Booleano)
 
 
