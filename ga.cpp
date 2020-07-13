@@ -37,6 +37,13 @@ vector<Individual *> read_file(string name){
         
         }else{
             cout << "Erro na entrada dos dados" << endl;
+            cout << "Formato do arquivo:" << endl
+                 << "Codificação _" << endl
+                 << "Chromossomo _" << endl
+                 << "Individual _" << endl
+                 << "Min _" << endl
+                 << "Max _" << endl;
+            
             exit(2);
         }
 
@@ -96,4 +103,22 @@ void print_solutions(vector<Individual *> population){
     for(int i = 0; i < population.size(); i++){
         cout << "Solution " << i << ": " << population[i] -> solution << endl;
     }
+}
+
+int dec_to_bin(Individual * population, int end,  int init){
+    int dec = 0;
+
+    for(int i = init; i < end; i++){
+        dec += population -> chromossomo[(end - 1) - i] * pow(2,i);
+    }
+
+    return dec;
+}
+
+double mapeamento(int valor, int min, int max, int l){
+    // cout << "Valor = " << valor << endl;
+    // cout << "Mapeado = ";
+    // cout << min + (max - min)/(pow(2, l) - 1) * valor << endl;
+    
+    return min + (max - min)/(pow(2, l) - 1) * valor;
 }

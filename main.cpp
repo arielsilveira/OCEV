@@ -10,16 +10,12 @@ int main(int argc, char const * argv[]){
     vector<Individual *> population;
     
     population = read_file(argv[1]);
-    // vector<int> solutions;
-    
-    
-    // vector<T> solutions(population[0] -> individual, 0);
 
     fitness(population);
 
-    print_individuals(population);
+    // print_individuals(population);
 
-    print_solutions(population);
+    // print_solutions(population);
 
     print_best_worse(population);
 

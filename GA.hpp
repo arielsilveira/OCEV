@@ -121,3 +121,7 @@ void print_best_worse(vector<Individual *> population);
 void print_individuals(vector<Individual *> population);
 
 void print_solutions(vector<Individual *> population);
+
+int dec_to_bin(Individual * population, int end, int init);
+
+double mapeamento(int valor, int min, int max, int l);
