@@ -9,4 +9,6 @@
     - [ ] Torneio estocástico; (Parâmetros K e KP)
     - [ ] Vizinhança linear (anel). (Parâmetros D (distância) e critério de seleção dentro da vizinhança, melhor fitness, fitness proporcional e aleatório)
 
-Todos devem contem o parâmetro de seleção elitista, ou seja, retira-se o pior individuo da geração atual e no lugar dele deve-se inserir o melhor indivíduo da geração anterior. 
+Todos devem contem o parâmetro de seleção elitista, ou seja, retira-se o pior individuo da geração atual e no lugar dele deve-se inserir o melhor indivíduo da geração anterior. (ParÂmetro booleano)
+
+As rotinas de seleção montam a população intermediária, onde será aplicado as perturbações de crossover e mutação posteriormente.
