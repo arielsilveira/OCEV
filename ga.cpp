@@ -78,13 +78,13 @@ void print_best_worse(vector<Individual *> population){
     }
     cout << endl;
     
-    cout << "Melhor indivíduo " << index_best << endl;
+    cout << "Melhor indivíduo: " << index_best << endl;
     cout << "Valor fitness: " << val_best << endl;
 
     population[index_best] -> print_individual();
     cout << endl;
 
-    cout << "Pior indivíduo " << index_worse << endl;
+    cout << "Pior indivíduo: " << index_worse << endl;
     cout << "Valor fitness: " << val_worse << endl;
 
     population[index_worse] -> print_individual();
