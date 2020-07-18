@@ -19,6 +19,7 @@ Deve conter o parâmetro de seleção elitista, ou seja, retira-se o pior indivi
 As rotinas de seleção montam a população intermediária, onde será aplicado as perturbações de crossover e mutação posteriormente.
 
 **Executando:**
-$ g++ NQueen/fitness.cpp ga.cpp main.cpp -o ga
 
-$ ./ga arq_nqueen
+**$** g++ NQueen/fitness.cpp ga.cpp main.cpp -o ga
+
+**$** ./ga arq_nqueen
