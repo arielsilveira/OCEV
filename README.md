@@ -20,4 +20,5 @@ As rotinas de seleção montam a população intermediária, onde será aplicado
 
 **Executando:**
 $ g++ NQueen/fitness.cpp ga.cpp main.cpp -o ga
+
 $ ./ga arq_nqueen
