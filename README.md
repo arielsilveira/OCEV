@@ -6,9 +6,9 @@
 
 **Implementar: Rotinas de seleção**
    
-- [ X ] Roleta sem reposição; (A cada par garante-se a não repetição de itens selecionados)
+- [X] Roleta sem reposição; (A cada par garante-se a não repetição de itens selecionados)
 
-- [ X ] Torneio estocástico; (Parâmetro K e função dist(); )
+- [X] Torneio estocástico; (Parâmetro K e função dist(); )
 
 - [ ] Vizinhança linear (anel); (Parâmetros D (distância) e critério de seleção dentro da vizinhança, melhor fitness, fitness proporcional e aleatório)
 
