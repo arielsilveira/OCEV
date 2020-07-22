@@ -14,12 +14,14 @@
 
 - [ ] Parâmetro de seleção elitista. (Booleano)
 
+- [ ] Exercício 5
+
 Deve conter o parâmetro de seleção elitista, ou seja, retira-se o pior individuo da geração atual e no lugar dele deve-se inserir o melhor indivíduo da geração anterior. (Parâmetro booleano)
 
 As rotinas de seleção montam a população intermediária, onde será aplicado as perturbações de crossover e mutação posteriormente.
 
 **Executando:**
 
-**$** g++ NQueen/fitness.cpp ga.cpp main.cpp -o ga
+**$** g++ NQueen/fitness.cpp Selecao/selecao_roleta.cpp ga.cpp main.cpp -o ga
 
 **$** ./ga arq_nqueen
