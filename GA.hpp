@@ -125,3 +125,5 @@ void print_solutions(vector<Individual *> population);
 int dec_to_bin(Individual * population, int end, int init);
 
 double mapeamento(int valor, int min, int max, int l);
+
+void selecao(vector<Individual *> population, vector<int> &select);
