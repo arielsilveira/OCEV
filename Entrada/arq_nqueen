@@ -1,5 +1,11 @@
-Codificação int-perm
-Chromossomo 8
-Individual 10
-Min 0
-Max 8
+num_Generation 1000
+population_Size 10
+gene_Size 8
+gene_Type INT-PERM
+crossover_Probability 0.9
+crossover_Type SINGLE_POINT
+mutation_Probability 0.05
+mutation_Type BITFLIP
+selection_Type TORNEIO
+min 0
+max 8

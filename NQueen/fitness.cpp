@@ -1,9 +1,9 @@
 #include "../GA.hpp"
 
-void fitness(vector<Individual *> population){
+void fitness(GA ga){
     int collision = 0, total = 0;
-    int max_individual = population[0] -> individual;
-    int max_chromossomo = population[0] -> max_chromossomo;
+    int max_individual = ga.population_size;
+    int max_chromossomo = ga.gene_size;
 
     for(int i = 0; i < max_individual; i++){
         collision = 0;
@@ -11,15 +11,15 @@ void fitness(vector<Individual *> population){
         for(int k = 0; k < max_individual; k++){
 
             if(i != k){
-                if(abs(population[i] -> chromossomo[i] - population[i] -> chromossomo[k]) == abs(i - k)){
+                if(abs(ga.population[i] -> chromossomo[i] - ga.population[i] -> chromossomo[k]) == abs(i - k)){
                     collision++;
                 }
             }
 
         }
 
-        population[i] -> solution = (max_chromossomo * (max_chromossomo - collision - 1));
-
+        ga.population[i] -> solution = (max_chromossomo * (max_chromossomo - collision - 1))/(pow(max_chromossomo, 2));
+        // cout << ga.population[i] -> solution << endl;
     }
 
 }

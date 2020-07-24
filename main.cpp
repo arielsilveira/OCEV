@@ -8,24 +8,23 @@ int main(int argc, char const * argv[]){
         exit(1);
     }
 
-    vector<Individual *> population;
-    vector<int> select(population.size(), 0);
+    GA *ga;
 
-    population = read_file(argv[1]);
+    ga = read_file(argv[1]);
 
-    fitness(population);
+    print_individuals(*ga);
 
-    print_best_worse(population);
+    fitness(*ga);
 
-    cout << endl << endl;
+    print_solutions(*ga);
 
-    selecao(population, select);
-    
+    print_best_worse(*ga);
 
+    // cout << endl << endl;
 
-    
-
-
+    // selecao(population, select);
+    ga -> selecao();
+    // ga -> print_select();
 
     cout << "OK" << endl;
 

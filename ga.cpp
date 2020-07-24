@@ -1,6 +1,6 @@
 #include "GA.hpp"
 
-vector<Individual *> read_file(string name){
+GA* read_file(string name){
     string caminho = "Entrada/"+name;
 
     ifstream file;
@@ -11,68 +11,99 @@ vector<Individual *> read_file(string name){
         exit(0);
     }
 
-    vector<Individual *> population;
-    
-    string codificacao;
-    int chromossomo, individual, min, max;
+    int generation;
+    int population;
+    int gene_size;
+    int min;
+    int max;
+
+    double crossover_probability;
+    double mutation_probability;
+
+    string gene_type;
+    string crossover_type;
+    string mutation_type;
+    string selection_type;
+
 
     while(!file.eof()){
         string op;
         file >> op;
 
-        if( op == "Codificação"){
-            file >> codificacao;
+        if( op == "num_Generation"){
+            file >> generation;
         
-        }else if(op =="Chromossomo"){
-            file >> chromossomo;
+        }else if(op =="gene_Size"){
+            file >> gene_size;
         
-        }else if(op == "Individual"){
-            file >> individual;
+        }else if(op == "population_Size"){
+            file >> population;
         
-        }else if(op == "Min"){
+        }else if(op == "gene_Type"){
+            file >> gene_type;
+
+        }else if(op == "crossover_Probability"){
+            file >> crossover_probability;
+
+        }else if(op == "crossover_Type"){
+            file >> crossover_type;
+
+        }else if(op == "mutation_Probability"){
+            file >> mutation_type;
+
+        }else if(op == "mutation_Type"){
+            file >> mutation_type;
+        
+        }else if(op == "selection_Type"){
+            file >> selection_type;
+
+        }else if(op == "min"){
             file >> min;
-        
-        }else if(op == "Max"){
+
+        }else if(op == "max"){
             file >> max;
-        
+
         }else{
             cout << "Erro na entrada dos dados" << endl;
-            cout << "Formato do arquivo:" << endl
-                 << "Codificação _" << endl
-                 << "Chromossomo _" << endl
-                 << "Individual _" << endl
-                 << "Min _" << endl
-                 << "Max _" << endl;
-            
+            cout << "Formato do arquivo:" << endl;
+            cout << "num_Generation int" << endl;
+            cout << "population_Size int" << endl;
+            cout << "gene_Size int" << endl;
+            cout << "gene_Type string" << endl;
+            cout << "crossover_Probability double"  << endl;
+            cout << "crossover_Type string"  << endl;
+            cout << "mutation_Probability double" << endl;
+            cout << "mutation_Type string" << endl;
+            cout << "selection_Type LINEAR_NEIGHBOURHOOD 12 NEIGHBOUR_BEST" << endl;
+            cout << "min int" << endl;
+            cout << "max int" << endl;
             exit(2);
+
         }
 
     }
 
-    for(int i = 0; i < individual; i++){
-        population.push_back(new Individual(codificacao, individual, chromossomo, min, max));
-    }
+    return new GA(generation, population, gene_size, crossover_probability, mutation_probability, gene_type, crossover_type, mutation_type, selection_type, min, max);
 
-    return population;
 }
 
-void print_best_worse(vector<Individual *> population){
-    auto val_best = population[0] -> solution;
+void print_best_worse(GA ga){
+    auto val_best = ga.population[0] -> solution;
     int index_best = 0;
     
-    auto val_worse = population[0] -> solution;
+    auto val_worse = ga.population[0] -> solution;
     int index_worse = 0;
     
-    int individual = population[0] -> individual;
+    int individual = ga.population_size;
 
     for (int i = 0; i < individual; i++){
-        if(population[i] -> solution > val_best){
-            val_best = population[i] -> solution;
+        if(ga.population[i] -> solution > val_best){
+            val_best = ga.population[i] -> solution;
             index_best = i;
         }
 
-        if(population[i] -> solution < val_worse){
-            val_worse = population[i] -> solution;
+        if(ga.population[i] -> solution < val_worse){
+            val_worse = ga.population[i] -> solution;
             index_worse = i;
         }
     }
@@ -81,30 +112,31 @@ void print_best_worse(vector<Individual *> population){
     cout << "Melhor indivíduo: " << index_best << endl;
     cout << "Valor fitness: " << val_best << endl;
 
-    population[index_best] -> print_individual();
+    ga.population[index_best] -> print_individual();
     cout << endl;
 
     cout << "Pior indivíduo: " << index_worse << endl;
     cout << "Valor fitness: " << val_worse << endl;
 
-    population[index_worse] -> print_individual();
+    ga.population[index_worse] -> print_individual();
 
 }
 
-void print_individuals(vector<Individual *> population){
-    for(int i = 0; i < population[0] -> individual; i++){
+void print_individuals(GA ga){
+    for(int i = 0; i < ga.population_size; i++){
         cout << "Indivíduo " << i << ": ";
         
-        population[i] -> print_individual();
+        ga.population[i] -> print_individual();
+    }
+}
+void print_solutions(GA ga){
+    for(int i = 0; i < ga.population_size; i++){
+        cout << "Solution " << i << ": " << ga.population[i] -> solution << endl;
     }
 }
 
-void print_solutions(vector<Individual *> population){
-    for(int i = 0; i < population.size(); i++){
-        cout << "Solution " << i << ": " << population[i] -> solution << endl;
-    }
-}
 
+/*
 int dec_to_bin(Individual * population, int end,  int init){
     int dec = 0;
 
@@ -122,3 +154,4 @@ double mapeamento(int valor, int min, int max, int l){
     
     return min + (max - min)/(pow(2, l) - 1) * valor;
 }
+*/

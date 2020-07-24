@@ -1,5 +1,11 @@
-Codificação bin
-Chromossomo 16
-Individual 10
-Min 0
-Max 0
+num_Generation 1000
+population_Size 10
+gene_Size 10
+gene_Type BINARY
+crossover_Probability 0.9
+crossover_Type SINGLE_POINT
+mutation_Probability 0.05
+mutation_Type BITFLIP
+selection_Type LINEAR_NEIGHBOURHOOD
+min 0
+max 0
