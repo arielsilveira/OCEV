@@ -1,4 +1,4 @@
-#include "../GA.hpp"
+#include "../GA/GA.hpp"
 
 void fitness(GA ga){
     int collision = 0, total = 0;

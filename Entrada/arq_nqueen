@@ -1,11 +1,9 @@
 num_Generation 1000
 population_Size 10
 gene_Size 8
-gene_Type INT-PERM
+gene_Type INT-PERM 0 8
 crossover_Probability 0.9
 crossover_Type SINGLE_POINT
 mutation_Probability 0.05
 mutation_Type BITFLIP
-selection_Type TORNEIO
-min 0
-max 8
+selection_Type TORNEIO 0.75

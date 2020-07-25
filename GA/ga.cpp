@@ -11,20 +11,22 @@ GA* read_file(string name){
         exit(0);
     }
 
-    int generation;
-    int population;
-    int gene_size;
-    int min;
-    int max;
+    int generation = 0;
+    int population_size = 0;
+    int gene_size = 0;
+    int min = 0;
+    int max = 0;
+    int v = 0;
 
-    double crossover_probability;
-    double mutation_probability;
+    double crossover_probability = 0.0;
+    double mutation_probability = 0.0;
+    double k = 0.0;
 
-    string gene_type;
-    string crossover_type;
-    string mutation_type;
-    string selection_type;
-
+    string gene_type = "";
+    string crossover_type = "";
+    string mutation_type = "";
+    string selection_type = "";
+    string criterio = "";
 
     while(!file.eof()){
         string op;
@@ -37,10 +39,14 @@ GA* read_file(string name){
             file >> gene_size;
         
         }else if(op == "population_Size"){
-            file >> population;
+            file >> population_size;
         
         }else if(op == "gene_Type"){
             file >> gene_type;
+
+            if(gene_type == "INT-PERM"){
+                file >> min >> max;
+            }
 
         }else if(op == "crossover_Probability"){
             file >> crossover_probability;
@@ -56,12 +62,11 @@ GA* read_file(string name){
         
         }else if(op == "selection_Type"){
             file >> selection_type;
-
-        }else if(op == "min"){
-            file >> min;
-
-        }else if(op == "max"){
-            file >> max;
+            if(selection_type == "TORNEIO"){
+                file >> k;
+            }else if(selection_type == "VIZINHANCA"){
+                file >> v >> criterio;
+            }
 
         }else{
             cout << "Erro na entrada dos dados" << endl;
@@ -75,15 +80,13 @@ GA* read_file(string name){
             cout << "mutation_Probability double" << endl;
             cout << "mutation_Type string" << endl;
             cout << "selection_Type LINEAR_NEIGHBOURHOOD 12 NEIGHBOUR_BEST" << endl;
-            cout << "min int" << endl;
-            cout << "max int" << endl;
             exit(2);
 
         }
 
     }
 
-    return new GA(generation, population, gene_size, crossover_probability, mutation_probability, gene_type, crossover_type, mutation_type, selection_type, min, max);
+    return new GA(generation, population_size, gene_size, crossover_probability, mutation_probability, gene_type, crossover_type, mutation_type, selection_type, min, max, k, v, criterio);
 
 }
 
@@ -129,6 +132,7 @@ void print_individuals(GA ga){
         ga.population[i] -> print_individual();
     }
 }
+
 void print_solutions(GA ga){
     for(int i = 0; i < ga.population_size; i++){
         cout << "Solution " << i << ": " << ga.population[i] -> solution << endl;
@@ -136,22 +140,21 @@ void print_solutions(GA ga){
 }
 
 
-/*
-int dec_to_bin(Individual * population, int end,  int init){
-    int dec = 0;
+// int dec_to_bin(vector<Individual *> population, int end,  int init){
+//     int dec = 0;
 
-    for(int i = init; i < end; i++){
-        dec += population -> chromossomo[(end - 1) - i] * pow(2,i);
-    }
+//     for(int i = init; i < end; i++){
+//         int a = population->chromossomo[(end - 1) - i];
+//         dec += a * pow(2,i);
+//     }
 
-    return dec;
-}
+//     return dec;
+// }
 
-double mapeamento(int valor, int min, int max, int l){
-    // cout << "Valor = " << valor << endl;
-    // cout << "Mapeado = ";
-    // cout << min + (max - min)/(pow(2, l) - 1) * valor << endl;
+// double mapeamento(int valor, int min, int max, int l){
+//     // cout << "Valor = " << valor << endl;
+//     // cout << "Mapeado = ";
+//     // cout << min + (max - min)/(pow(2, l) - 1) * valor << endl;
     
-    return min + (max - min)/(pow(2, l) - 1) * valor;
-}
-*/
+//     return min + (max - min)/(pow(2, l) - 1) * valor;
+// }

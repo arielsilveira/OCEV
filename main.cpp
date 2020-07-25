@@ -1,4 +1,4 @@
-#include "GA.hpp"
+#include "GA/GA.hpp"
 // #include <time.h>       /* time */
 
 int main(int argc, char const * argv[]){
@@ -20,12 +20,9 @@ int main(int argc, char const * argv[]){
 
     print_best_worse(*ga);
 
-    // cout << endl << endl;
-
-    // selecao(population, select);
     ga -> selecao();
-    // ga -> print_select();
-
+    ga -> print_select();
+    
     cout << "OK" << endl;
 
     return 0;
