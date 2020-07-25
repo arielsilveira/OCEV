@@ -54,6 +54,20 @@ public:
     
     void crossover();
 
+    void one_point();
+    
+    void two_point();
+    
+    void uniform();
+    
+    void pmx();
+    
+    void blx_a();
+    
+    void arithmetic();
+
+    void troca_genetica_corte(int p1, int p2, int corte_init, int corte_end, vector<Individual *> &new_population);
+
     void mutacao();
 
     void print_select();

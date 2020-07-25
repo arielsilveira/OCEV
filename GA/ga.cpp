@@ -139,7 +139,6 @@ void print_solutions(GA ga){
     }
 }
 
-
 // int dec_to_bin(vector<Individual *> population, int end,  int init){
 //     int dec = 0;
 

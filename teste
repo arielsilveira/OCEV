@@ -1,0 +1,128 @@
+
+
+
+Seleção 7: 1 0 5 2 4 6 7 3 
+Seleção 3: 0 6 5 3 7 1 2 4 
+Seleção 4: 5 1 4 6 2 3 7 0 
+Seleção 3: 0 6 5 3 7 1 2 4 
+Seleção 9: 4 2 0 6 7 5 1 3 
+Seleção 3: 0 6 5 3 7 1 2 4 
+Seleção 1: 6 4 0 7 5 2 1 3 
+Seleção 0: 5 6 1 4 2 7 0 3 
+Seleção 5: 7 2 3 0 1 6 5 4 
+Seleção 9: 4 2 0 6 7 5 1 3 
+
+Corte inicio: 5
+Corte fim: 7
+3 => 4 --- 6 => 1 --- 7 => 2 --- 1 => 6 --- 2 => 7 --- 4 => 3 --- 
+i = 0
+Valor antes: 1
+Valor depois: 6
+Valor antes: 0
+Valor depois: 0
+Valor antes: 5
+Valor depois: 0
+Valor antes: 2
+Valor depois: 7
+Valor antes: 4
+Valor depois: 3
+Valor antes: 6
+Valor depois: 0
+Valor antes: 7
+Valor depois: 0
+Valor antes: 3
+Valor depois: 0
+Corte inicio: 5
+Corte fim: 6
+3 => 1 --- 7 => 2 --- 1 => 3 --- 2 => 7 --- 
+i = 2
+Valor antes: 5
+Valor depois: 0
+Valor antes: 1
+Valor depois: 3
+Valor antes: 4
+Valor depois: 0
+Valor antes: 6
+Valor depois: 0
+Valor antes: 2
+Valor depois: 7
+Valor antes: 3
+Valor depois: 0
+Valor antes: 7
+Valor depois: 0
+Valor antes: 0
+Valor depois: 0
+Corte inicio: 3
+Corte fim: 4
+6 => 4 --- 7 => 2 --- 2 => 7 --- 4 => 6 --- 
+i = 4
+Valor antes: 4
+Valor depois: 6
+Valor antes: 2
+Valor depois: 7
+Valor antes: 0
+Valor depois: 0
+Valor antes: 6
+Valor depois: 0
+Valor antes: 7
+Valor depois: 0
+Valor antes: 5
+Valor depois: 0
+Valor antes: 1
+Valor depois: 0
+Valor antes: 3
+Valor depois: 0
+Corte inicio: 2
+Corte fim: 5
+0 => 1 --- 2 => 7 --- 5 => 2 --- 7 => 4 --- 1 => 0 --- 2 => 5 --- 4 => 7 --- 7 => 2 --- 
+i = 6
+Valor antes: 6
+Valor depois: 0
+Valor antes: 4
+Valor depois: 7
+Valor antes: 0
+Valor depois: 0
+Valor antes: 7
+Valor depois: 2
+Valor antes: 5
+Valor depois: 0
+Valor antes: 2
+Valor depois: 5
+Valor antes: 1
+Valor depois: 0
+Valor antes: 3
+Valor depois: 0
+Corte inicio: 4
+Corte fim: 7
+1 => 0 --- 4 => 0 --- 5 => 0 --- 6 => 0 --- 0 => 1 --- 
+i = 8
+Valor antes: 7
+Valor depois: 0
+Valor antes: 2
+Valor depois: 0
+Valor antes: 3
+Valor depois: 0
+Valor antes: 0
+Valor depois: 1
+Valor antes: 1
+Valor depois: 0
+Valor antes: 6
+Valor depois: 0
+Valor antes: 5
+Valor depois: 0
+Valor antes: 4
+Valor depois: 0
+
+
+
+Indivíduo 0: 6 0 0 7 3 0 0 0 
+Indivíduo 1: 0 1 5 4 2 1 2 4 
+Indivíduo 2: 0 3 0 0 7 0 0 0 
+Indivíduo 3: 0 1 5 4 2 1 2 4 
+Indivíduo 4: 0 7 0 0 0 0 0 0 
+Indivíduo 5: 0 1 5 4 2 1 2 4 
+Indivíduo 6: 0 7 0 2 0 5 0 0 
+Indivíduo 7: 2 6 1 4 7 4 1 3 
+Indivíduo 8: 0 0 0 1 0 0 0 0 
+Indivíduo 9: 0 7 0 0 0 0 0 0 
+OK

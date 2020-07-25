@@ -12,16 +12,34 @@ int main(int argc, char const * argv[]){
 
     ga = read_file(argv[1]);
 
-    print_individuals(*ga);
+    // print_individuals(*ga);
 
     fitness(*ga);
 
-    print_solutions(*ga);
+    // print_solutions(*ga);
 
-    print_best_worse(*ga);
+    // print_best_worse(*ga);
 
+    // print_individuals(*ga);
     ga -> selecao();
-    ga -> print_select();
+
+    cout << endl << endl << endl;
+
+    for(int i = 0; i < ga -> select.size(); i++){
+        cout << "Seleção " << ga -> select[i] << ": ";
+        for(int j = 0; j < ga -> gene_size; j++){
+             cout << ga -> population[ga -> select[i]] -> chromossomo[j] << " ";
+        }
+        cout << endl;
+    }
+    cout << endl; 
+    // print_individuals(*ga);
+    // cout << endl; 
+    // ga -> print_select();
+    // cout << endl; 
+    ga -> crossover();
+    cout << endl << endl << endl;
+    print_individuals(*ga);
     
     cout << "OK" << endl;
 

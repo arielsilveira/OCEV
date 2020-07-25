@@ -143,23 +143,21 @@ void GA::selecao_vizinhanca(){
                     return g_dist(g_e);
     };
 
-    // int vizinhanca_tam = 0;
-
     auto melhor = [&](int init, int end) -> int {
-        int best = init;
-        for(int i = init+1; i < end; i++){
-            if(population[i] -> solution > population[best] -> solution){
-                best = i;
+        double best = fit_relativo[init];
+        int indice = init;
+        // cout << "Inicio: " << init << " -- " << "End: " << end << endl;
+        for(int i = init; i <= end; i++){
+            if(fit_relativo[i] > best){
+                indice = i;
+                best = fit_relativo[i];
             }
         }
-        return best;
+
+        return indice;
     };
 
-    auto random = [&](int init, int end) -> int {
-        return dist_int(init, end);
-    };
-
-    auto fit_prop = [&](int init, int end, int indice) -> int {
+    auto fit_prop = [&](int init, int end) -> int {
         int best = init;
         double qnt, rnd;
         qnt = rnd = 0.0;
@@ -168,10 +166,10 @@ void GA::selecao_vizinhanca(){
             qnt = 0.0;
             rnd = dist_double(0, 1);
         
-            for(int j = init+1; j <= end; j++){
+            for(int j = init+1; j < end; j++){
                 qnt +=  fit_relativo[j];
 
-                if(qnt > rnd && j != indice){
+                if(qnt > rnd){
                     best = j;
                     break;
                 }
@@ -183,23 +181,19 @@ void GA::selecao_vizinhanca(){
     };
 
     for(int i = 0; i < population_size; i++){
-        int init = population_size - v;
-        int end = population_size + v;
+        int init = i - v;
+        int end = i + v;
         
         if(init < 0) init = 0;
         
-        if(end > population_size) end = population_size;
+        if(end >= population_size) end = population_size-1;
 
         if(criterio == "MELHOR"){
             select[i] = melhor(init, end);
         }
         
-        if(criterio == "PROPORCINAL"){
-            select[i] = fit_prop(init, end, i);
-        }
-
         if(criterio == "RANDOM"){
-            select[i] = random(init, end);
+            select[i] = dist_int(init, end);
         }
         
     }
