@@ -74,6 +74,8 @@ public:
 
     void random();
 
+    void swap_mutation();
+
     void print_select();
 
 };

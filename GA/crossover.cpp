@@ -149,7 +149,7 @@ void GA::uniform(){
 }
 
 void GA::pmx(){
-    if(gene_type != "INT-PERM") cout << "Função inapropriada para o cálculo de crossover" << endl; exit(1);
+    if(gene_type != "INT-PERM") cout << "Função inapropriada para o cálculo de crossover" << endl; //exit(1);
 
     auto dist_real = [](int min, int max) -> double {
             random_device g_rd;
@@ -181,7 +181,6 @@ void GA::pmx(){
 
     // paralelo
     for(int i = 0; i < population_size; i+=2){
-        if(i == 2) break;
         corte_init = dist_int(1, gene_size-3);
         corte_end = dist_int(corte_init+1, gene_size-1);
 
@@ -199,8 +198,6 @@ void GA::pmx(){
             map_2_to_1[f2] = f1;
         }
 
-        cout << endl;
-        
         for(int j = 0; j < gene_size; j++){
             if(j < corte_init || j > corte_end){
                 

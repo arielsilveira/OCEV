@@ -5,5 +5,5 @@ gene_Type INT-PERM 0 8
 crossover_Probability 0.6
 crossover_Type PMX
 mutation_Probability 0.05
-mutation_Type BITFLIP
+mutation_Type SWAP_MUTATION
 selection_Type ROLETA

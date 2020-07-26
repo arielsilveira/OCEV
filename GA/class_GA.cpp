@@ -6,7 +6,7 @@ GA::GA(int generation, int population_size, int gene_size, double crossover_prob
     this -> population_size = population_size;
     this -> gene_size = gene_size;
     this -> crossover_probability = crossover_probability;
-    this -> mutation_probability;
+    this -> mutation_probability = mutation_probability;
     this -> gene_type = gene_type;
     this -> crossover_type = crossover_type;
     this -> mutation_type = mutation_type;

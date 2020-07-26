@@ -2,11 +2,11 @@
 
 void GA::mutacao(){
     if(mutation_type == "BIT_FLIP"){
-
+        bit_flip();
     }else if(mutation_type == "RANDOM"){
-
+        random();
     }else if(mutation_type == "SWAP_MUTATION"){
-
+        swap_mutation();
     }else if(mutation_type == "MICHALEWICZ"){
 
     }else{
@@ -86,4 +86,40 @@ void GA::random(){
 
         }
     }
+}
+
+void GA::swap_mutation(){
+    if(gene_type != "INT-PERM") exit(1);
+
+    auto dist_real = [](int min, int max) -> double {
+        random_device g_rd;
+        mt19937 g_e(g_rd());
+        uniform_real_distribution<> g_dist(min, max);
+    
+        return g_dist(g_e);
+    };
+
+    auto dist_int = [](int min, int max) -> int {
+        random_device g_rd; 
+        mt19937 g_e(g_rd());
+        uniform_int_distribution<> g_dist(min, max);
+
+        return g_dist(g_e);
+    };
+    // cout << "Mutation Probability: " << mutation_probability << endl;
+    for(int i = 0; i < population_size; i++){
+
+        for(int j = 0; j < gene_size; j++){
+            double rnd = dist_real(0, 1);
+            if(rnd < mutation_probability){
+                // cout << "deveria ter trocado" << endl;
+                int pos = 0;
+                do{
+                    pos = dist_int(0, gene_size-1);
+                }while(j == pos);
+                swap(population[i] -> chromossomo[j], population[i] -> chromossomo[pos]);
+            }
+        }
+    }
+
 }

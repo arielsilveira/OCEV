@@ -55,7 +55,7 @@ GA* read_file(string name){
             file >> crossover_type;
 
         }else if(op == "mutation_Probability"){
-            file >> mutation_type;
+            file >> mutation_probability;
 
         }else if(op == "mutation_Type"){
             file >> mutation_type;
@@ -85,7 +85,7 @@ GA* read_file(string name){
         }
 
     }
-
+    cout << "Mutation Probability: " << mutation_probability << endl;
     return new GA(generation, population_size, gene_size, crossover_probability, mutation_probability, gene_type, crossover_type, mutation_type, selection_type, min, max, k, v, criterio);
 
 }
@@ -118,10 +118,10 @@ void print_best_worse(GA ga){
     ga.population[index_best] -> print_individual();
     cout << endl;
 
-    cout << "Pior indivíduo: " << index_worse << endl;
-    cout << "Valor fitness: " << val_worse << endl;
+    // cout << "Pior indivíduo: " << index_worse << endl;
+    // cout << "Valor fitness: " << val_worse << endl;
 
-    ga.population[index_worse] -> print_individual();
+    // ga.population[index_worse] -> print_individual();
 
 }
 
