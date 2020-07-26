@@ -16,17 +16,23 @@ int main(int argc, char const * argv[]){
 
     for(int i = 0; i < ga -> generation; i++){
         cout << "Geração " << i << endl;
-        fitness(*ga);
+        fitness(ga);
+        // cout << "População inicial" << endl;
+        // print_individuals(*ga);
 
-        print_solutions(*ga);
+        // print_solutions(*ga);
         // print_solutions(*ga);
         // cout << endl << endl;
-        print_best_worse(*ga);
-
-        // cout << endl << endl;
+        // print_best_worse(*ga);
+// cout << endl << endl << endl;
+        cout << endl << endl;
 
         // print_individuals(*ga);
+        // cout << "Vou fazer a seleção" << endl;
         ga -> selecao();
+        // cout << endl << endl << endl;
+        // cout << "Fiz a seleção" << endl;
+        // print_individuals(*ga);
 
         // cout << endl << endl << endl;
 
@@ -42,15 +48,24 @@ int main(int argc, char const * argv[]){
         // cout << endl; 
         // ga -> print_select();
         // cout << endl; 
+        // cout << "Vou fazer o crossover" << endl;
+        // print_individuals(*ga);
+        // cout << endl << endl << endl;
         ga -> crossover();
+        // cout << endl << endl << endl;
+
+        // cout << "Fiz o crossover" << endl;
+        // print_individuals(ga);
+        print_solutions(ga);
+
         cout << endl << endl << endl;
-        print_individuals(*ga);
+        cout << "Vou fazer a mutação" << endl;
 
         ga -> mutacao();
-
+        cout << endl << endl << endl;
         cout << "Sofri mutação" << endl << endl;
-        print_individuals(*ga);
-        // print_solutions(*ga);
+        print_individuals(ga);
+        
     }
     cout << "OK" << endl;
 
