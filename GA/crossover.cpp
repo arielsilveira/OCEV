@@ -149,6 +149,7 @@ void GA::uniform(){
 }
 
 void GA::pmx(){
+    if(gene_type != "INT-PERM") cout << "Função inapropriada para o cálculo de crossover" << endl; exit(1);
 
     auto dist_real = [](int min, int max) -> double {
             random_device g_rd;
@@ -180,9 +181,10 @@ void GA::pmx(){
 
     // paralelo
     for(int i = 0; i < population_size; i+=2){
-
+        if(i == 2) break;
         corte_init = dist_int(1, gene_size-3);
         corte_end = dist_int(corte_init+1, gene_size-1);
+
         map<int, int> map_1_to_2;
         map<int, int> map_2_to_1;
 
@@ -190,42 +192,49 @@ void GA::pmx(){
 
             int f1 = new_population[i] -> chromossomo[j];
             int f2 = new_population[i+1] -> chromossomo[j];
-            map_1_to_2.insert(pair<int, int> (f1, f2));
-            map_2_to_1.insert(pair<int, int> (f2, f1));
+            
+            new_population[i] -> chromossomo[j] = f2;
+            new_population[i+1] -> chromossomo[j] = f1;
+            map_1_to_2[f1] = f2;
+            map_2_to_1[f2] = f1;
         }
 
-        cout << "Corte inicio: " << corte_init << endl;
-        cout << "Corte fim: " << corte_end << endl;
-
-        for (map<int,int>::iterator it=map_1_to_2.begin(); it!=map_1_to_2.end(); ++it)
-            cout << it->first << " => " << it->second << " --- ";
-
-
-        for (map<int,int>::iterator it=map_2_to_1.begin(); it!=map_2_to_1.end(); ++it)
-            cout << it->first << " => " << it->second << " --- ";
-        
-        cout << endl << "i = " << i << endl;
+        cout << endl;
         
         for(int j = 0; j < gene_size; j++){
-            int f1 = new_population[i] -> chromossomo[j];
-            int f2 = new_population[i+1] -> chromossomo[j];
+            if(j < corte_init || j > corte_end){
+                
+                int f1 = new_population[i] -> chromossomo[j];
+                int f2 = new_population[i+1] -> chromossomo[j];
 
-            cout << "Valor antes: " << f1 << endl;
-            cout << "Valor depois: " << map_2_to_1[f1] << endl;
-            
-            if(map_2_to_1.count(f1) > 0){
-                new_population[i] -> chromossomo[j] = map_2_to_1[f1];
-            }else{
-                new_population[i] -> chromossomo[j] = f1;
-            }
+                if(map_2_to_1.count(f1) > 0){
 
-            if(map_1_to_2.count(f2) > 0){
-                new_population[i+1] -> chromossomo[j] = map_1_to_2[f2];
-            }else{
-                new_population[i+1] -> chromossomo[j] = f2;
+                    int val = map_2_to_1[f1];
+
+                    while(map_2_to_1.count(val) > 0){
+                        val = map_2_to_1[val];
+
+                    }
+                    
+                    new_population[i] -> chromossomo[j] = val;
+
+                }
+
+                if(map_1_to_2.count(f2) > 0){
+
+                    int val = map_1_to_2[f2];
+
+                    while(map_1_to_2.count(val) > 0){
+                        val = map_1_to_2[val];
+
+                    }
+                    
+                    new_population[i+1] -> chromossomo[j] = val;
+
+                }
+
             }
         }
-
 
     }
 
@@ -234,11 +243,51 @@ void GA::pmx(){
 }
 
 void GA::blx_a(){
-
+    if(gene_type == "REAL"){
+        // tentar entender
+    }else{
+        cout << "Função inapropriada para o cálculo de crossover. "<< endl;
+        exit(1);
+    }
 }
 
 void GA::arithmetic(){
+    if(gene_type == "REAL"){
 
+        auto dist_real = [](int min, int max) -> double {
+                random_device g_rd;
+                mt19937 g_e(g_rd());
+                uniform_real_distribution<> g_dist(min, max);
+            
+                return g_dist(g_e);
+        };
+
+        vector<Individual *> new_population(population_size, 0);
+        new_population = population;
+
+
+        for(int i = 0; i < population_size; i++){
+            new_population[i] = population[select[i]];
+
+        }
+
+        for(int i = 0; i < population_size; i+=2){
+            int a = dist_real(0, 1);
+
+            for(int j = 0; j < gene_size; j++){
+                new_population[i] -> chromossomo[j] = a*population[i]->chromossomo[j] + (1-a)*population[i+1]->chromossomo[j];
+                new_population[i+1] -> chromossomo[j] = (1-a)*population[i]->chromossomo[j] + a*population[i+1]->chromossomo[j];
+            }
+
+
+        }
+
+        population = new_population;
+
+    }else{
+        cout << "Função inapropriada para o cálculo de crossover. "<< endl;
+        exit(1);
+    }
 }
 
 

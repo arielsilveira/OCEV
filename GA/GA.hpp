@@ -69,6 +69,10 @@ public:
     void troca_genetica_corte(int p1, int p2, int corte_init, int corte_end, vector<Individual *> &new_population);
 
     void mutacao();
+    
+    void bit_flip();
+
+    void random();
 
     void print_select();
 

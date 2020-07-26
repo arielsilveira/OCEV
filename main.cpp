@@ -39,7 +39,7 @@ int main(int argc, char const * argv[]){
     // cout << endl; 
     ga -> crossover();
     cout << endl << endl << endl;
-    print_individuals(*ga);
+    // print_individuals(*ga);
     
     cout << "OK" << endl;
 
