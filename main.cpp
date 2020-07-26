@@ -44,11 +44,12 @@ int main(int argc, char const * argv[]){
         // cout << endl; 
         ga -> crossover();
         cout << endl << endl << endl;
-        // print_individuals(*ga);
+        print_individuals(*ga);
 
         ga -> mutacao();
-        // cout << endl << endl << endl;
-        // print_individuals(*ga);
+
+        cout << "Sofri mutação" << endl << endl;
+        print_individuals(*ga);
         // print_solutions(*ga);
     }
     cout << "OK" << endl;

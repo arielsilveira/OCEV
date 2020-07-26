@@ -1,9 +1,9 @@
 num_Generation 1000
-population_Size 10
+population_Size 20
 gene_Size 8
 gene_Type INT-PERM 0 8
-crossover_Probability 0.6
+crossover_Probability 0.8
 crossover_Type PMX
-mutation_Probability 0.05
+mutation_Probability 0.3
 mutation_Type SWAP_MUTATION
-selection_Type ROLETA
+selection_Type TORNEIO 1

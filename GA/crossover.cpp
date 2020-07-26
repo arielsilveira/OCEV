@@ -235,6 +235,7 @@ void GA::pmx(){
 
     }
 
+
     population = new_population;
 
 }
