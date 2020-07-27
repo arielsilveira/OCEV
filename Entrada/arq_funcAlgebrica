@@ -1,11 +1,9 @@
 num_Generation 1000
-population_Size 10
-gene_Size 10
-gene_Type BINARY
-crossover_Probability 0.9
-crossover_Type SINGLE_POINT
-mutation_Probability 0.05
-mutation_Type BITFLIP
-selection_Type LINEAR_NEIGHBOURHOOD
-min 0
-max 0
+population_Size 30
+gene_Size 32
+gene_Type INT-PERM 0 31
+crossover_Probability 0.95
+crossover_Type PMX
+mutation_Probability 0.03
+mutation_Type SWAP_MUTATION
+selection_Type TORNEIO 1
