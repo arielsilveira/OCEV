@@ -91,22 +91,22 @@ GA* read_file(string name){
 }
 
 void print_best_worse(GA* &ga){
-    auto val_best = ga -> population[0] -> solution;
+    auto val_best = ga -> population[0].solution;
     int index_best = 0;
     
-    auto val_worse = ga -> population[0] -> solution;
+    auto val_worse = ga -> population[0].solution;
     int index_worse = 0;
     
     int individual = ga -> population_size;
 
     for (int i = 0; i < individual; i++){
-        if(ga -> population[i] -> solution > val_best){
-            val_best = ga -> population[i] -> solution;
+        if(ga -> population[i].solution > val_best){
+            val_best = ga -> population[i].solution;
             index_best = i;
         }
 
-        if(ga -> population[i] -> solution < val_worse){
-            val_worse = ga -> population[i] -> solution;
+        if(ga -> population[i].solution < val_worse){
+            val_worse = ga -> population[i].solution;
             index_worse = i;
         }
     }
@@ -115,7 +115,7 @@ void print_best_worse(GA* &ga){
     cout << "Melhor indivíduo: " << index_best << endl;
     cout << "Valor fitness: " << val_best << endl;
 
-    ga -> population[index_best] -> print_individual();
+    ga -> population[index_best].print_individual();
     cout << endl;
 
     // cout << "Pior indivíduo: " << index_worse << endl;
@@ -129,13 +129,13 @@ void print_individuals(GA* &ga){
     for(int i = 0; i < ga -> population_size; i++){
         cout << "Indivíduo " << i << ": ";
         
-        ga -> population[i] -> print_individual();
+        ga -> population[i].print_individual();
     }
 }
 
 void print_solutions(GA* &ga){
     for(int i = 0; i < ga -> population_size; i++){
-        cout << "Solution " << i << ": " << ga -> population[i] -> solution << endl;
+        cout << "Solution " << i << ": " << ga -> population[i].solution << endl;
     }
 }
 

@@ -11,15 +11,14 @@ void fitness(GA* &ga){
         for(int k = 0; k < max_individual; k++){
 
             if(i != k){
-                if(abs(ga -> population[i] -> chromossomo[i] - ga -> population[i] -> chromossomo[k]) == abs(i - k)){
+                if(abs(ga -> population[i].chromossomo[i] - ga -> population[i].chromossomo[k]) == abs(i - k)){
                     collision++;
                 }
             }
 
         }
 
-        ga -> population[i] -> solution = (max_chromossomo * (max_chromossomo - collision - 1))/(pow(max_chromossomo, 2));
-        // cout << ga.population[i] -> solution << endl;
+        ga -> population[i].solution = (max_chromossomo * (max_chromossomo - collision))/(pow(max_chromossomo, 2));
     }
 
 }
