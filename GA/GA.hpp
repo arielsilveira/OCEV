@@ -440,8 +440,9 @@ public:
 
 };
 
+// ------------------------------------------------------- //
 
-
+// Cabeçalhos das funções
 GA* read_file(string name);
 
 void fitness(GA* &ga);
@@ -452,10 +453,30 @@ void print_individuals(GA* &ga);
 
 void print_solutions(GA* &ga);
 
+void selecao_menu(GA* &ga);
+
 void selecao_torneio(GA* &ga);
 
+void selecao_roleta(GA* &ga);
+
+//void selecao_vizinhanca(GA* &ga);
+
+void crossover_menu(GA* &ga);
+
 void crossover_PMX(GA* &ga);
+
 void mutacao_swap(GA* &ga);
+
+void one_point(GA* &ga);
+
+void two_point(GA* &ga);
+
+void uniform(GA* &ga);
+
+void arithmetic(GA* &ga);
+
+void troca_genetica_corte(GA* &ga, int p1, int p2, int corte_init, int corte_end, vector<Individual<int>> &new_population);
+
 // int dec_to_bin(GA ga, int end, int init);
 
 // double mapeamento(int valor, int min, int max, int l);

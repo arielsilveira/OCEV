@@ -1,5 +1,18 @@
 #include "GA/GA.hpp"
 
+void selecao_menu(GA* &ga){
+    if(ga->gene_type == "roleta"){
+        selecao_roleta(ga);
+    }else if(ga->gene_type == "torneio"){
+        selecao_torneio(ga);
+    }else if(ga->gene_type == "vizinhanca"){
+        //selecao_vizinhanca(ga);
+    }else{
+        exit(1); 
+    }
+}
+
+// ------------------------------------------------------- //
 
 void selecao_torneio(GA* &ga){
 
@@ -59,7 +72,64 @@ void selecao_torneio(GA* &ga){
     //     ga -> population[i].print_individual();
     //     cout << endl;
     // }
+}
 
+// ------------------------------------------------------- //
+
+void selecao_roleta(GA* &ga){
+    double T;
+    vector<double> result(ga->population_size);
+    int old_individuo = -1;
+    vector<int> new_individuo(ga->population_size);
+    vector<Individual<int>> old_populacao(ga->population_size); 
+
+    auto dist_double = [](int min, int max) -> double {               //funcao lambda, retorna double qlqr
+                            random_device g_rd;
+                            mt19937 g_e(g_rd());
+                            uniform_real_distribution<> g_dist(min, max);
+
+                            return g_dist(g_e);
+    };
+    
+    for(int i = 0; i < ga->population_size; i++){       //T = Tamnaho total das soluções 
+        T += ga->population[i].solution;
+    }
+
+    for(int i = 0; i < ga->population_size; i++){       //result = cada posicao contem o fitness relativo de cada indivuo 
+        result[i] = ga->population[i].solution / T;
+    }
+
+    for(int i = 0; i < ga->population_size; i++){       //roleta 
+        double incremento;
+        double auxiliar_random;
+
+        do{
+            incremento = 0.0;
+            auxiliar_random = dist_double(0, 1);
+            
+            for(int j = 0; j < ga->population_size; j++){
+                if(old_individuo != j){
+                    incremento += result[j];
+                }
+                if(incremento > auxiliar_random){
+                    new_individuo[i] = j; 
+                    old_individuo = j; 
+                    break;
+                }
+            }
+        }while(incremento < auxiliar_random);
+    }
+
+    old_populacao = ga->population;
+
+    for(int i = 0; i < ga->population_size; i++){                   //guarda os individuos selecionados na roleta
+        ga->population[i] = old_populacao[new_individuo[i]];
+    }
 
 }
 
+// ------------------------------------------------------- //
+
+// void selecao_vizinhanca(GA* &ga){
+
+// }
