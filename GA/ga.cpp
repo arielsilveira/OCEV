@@ -139,6 +139,37 @@ void print_solutions(GA* &ga){
     }
 }
 
+
+void final_result(GA* &ga, int pos){
+    double val_best = 0;
+    int index_best = 0;
+    
+    double val_worse = 1;
+    int index_worse = 0;
+    
+    int individual = ga -> population_size;
+
+    double media = 0;
+
+    for (int i = 0; i < individual; i++){
+        if(ga -> population[i].solution > val_best){
+            val_best = ga -> population[i].solution;
+            index_best = i;
+        }
+
+        if(ga -> population[i].solution < val_worse){
+            val_worse = ga -> population[i].solution;
+            index_worse = i;
+        }
+
+        media += ga -> population[i].solution;
+    }
+
+    ga -> melhor[pos].push_back(val_best);
+    ga -> media[pos].push_back(media/ga -> population_size);
+    ga -> pior[pos].push_back(val_worse);
+}
+
 // int dec_to_bin(vector<Individual *> population, int end,  int init){
 //     int dec = 0;
 

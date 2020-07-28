@@ -1,15 +1,15 @@
 #include "GA/GA.hpp"
 
 void crossover_menu(GA* &ga){
-    if(ga->gene_type == "pmx"){
+    if(ga->crossover_type == "pmx"){
         crossover_PMX(ga);
-    }else if(ga->gene_type == "um ponto"){
+    }else if(ga->crossover_type == "um ponto"){
         one_point(ga);
-    }else if(ga->gene_type == "dois pontos"){
+    }else if(ga->crossover_type == "dois pontos"){
         two_point(ga);
-    }else if(ga->gene_type == "uniforme"){
+    }else if(ga->crossover_type == "uniforme"){
         uniform(ga);
-    }else if(ga->gene_type == "aritimetico"){
+    }else if(ga->crossover_type == "aritimetico"){
         arithmetic(ga);
     }else{
         exit(1); 

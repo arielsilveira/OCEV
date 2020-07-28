@@ -1,11 +1,11 @@
 #include "GA/GA.hpp"
 
 void selecao_menu(GA* &ga){
-    if(ga->gene_type == "roleta"){
+    if(ga->selection_type == "roleta"){
         selecao_roleta(ga);
-    }else if(ga->gene_type == "torneio"){
+    }else if(ga->selection_type == "torneio"){
         selecao_torneio(ga);
-    }else if(ga->gene_type == "vizinhanca"){
+    }else if(ga->selection_type == "vizinhanca"){
         //selecao_vizinhanca(ga);
     }else{
         exit(1); 

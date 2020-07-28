@@ -133,6 +133,10 @@ public:
     vector<Individual <int>> population;
     vector<int> select;
 
+    vector<vector<double>> melhor;
+    vector<vector<double>> media;
+    vector<vector<double>> pior;
+
     GA(int generation, int population_size, int gene_size, double crossover_probability, double mutation_probability, string gene_type, string crossover_type, string mutation_type, string selection_type, int min, int max, double k, int v, string criterio){
 
         this -> generation = generation; 
@@ -153,10 +157,8 @@ public:
         vector<int> aux(population_size, 0);
         select = aux;
 
-        for(int i = 0; i < population_size; i++){
-            Individual<int> a = Individual<int>(gene_type, gene_size, min, max);
-            this -> population.push_back(a);
-        }
+        start_generation();
+
 
     }
 
@@ -432,6 +434,13 @@ public:
 
 
 
+    void start_generation(){
+        for(int i = 0; i < population_size; i++){
+            Individual<int> a = Individual<int>(gene_type, gene_size, min, max);
+            this -> population.push_back(a);
+        }
+    }
+
     void print_select(){
         for(int i = 0; i < population_size; i++){
             cout << "Indivíduo " << select[i] << ": " << population[select[i]].solution << endl;
@@ -476,6 +485,8 @@ void uniform(GA* &ga);
 void arithmetic(GA* &ga);
 
 void troca_genetica_corte(GA* &ga, int p1, int p2, int corte_init, int corte_end, vector<Individual<int>> &new_population);
+
+void final_result(GA* &ga, int pos);
 
 // int dec_to_bin(GA ga, int end, int init);
 
