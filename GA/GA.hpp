@@ -493,6 +493,8 @@ void final_result(GA* &ga, int pos);
 bool sortbysec(const pair<int,double> &a, 
               const pair<int,double> &b);
 
-// int dec_to_bin(GA ga, int end, int init);
+int dec_to_bin(Individual<int> , int end, int init);
 
-// double mapeamento(int valor, int min, int max, int l);
+double mapeamento(int valor, int min, int max, int l);
+
+void bit_flip(GA* &ga);

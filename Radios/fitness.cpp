@@ -1,10 +1,10 @@
-#include "../GA.hpp"
+#include "../GA/GA.hpp"
 
-void fitness(vector<Individual *> population){
+void fitness(GA* &ga){
 
-    for(int i = 0; i < population[0] -> individual; i++){
-        int st = dec_to_bin(population[i], (population[i] -> max_chromossomo)/2, 0); 
-        int lt = dec_to_bin(population[i], population[i] -> max_chromossomo, ((population[i] -> max_chromossomo)/2)); 
+    for(int i = 0; i < ga -> population_size; i++){
+        int st = dec_to_bin(ga -> population[i], (ga -> gene_size)/2, 0); 
+        int lt = dec_to_bin(ga -> population[i], ga -> gene_size, ((ga -> gene_size)/2)); 
 
         st = int(mapeamento(st, 0, 24, 5));
         lt = int(mapeamento(st, 0, 16, 5));
@@ -14,7 +14,7 @@ void fitness(vector<Individual *> population){
         double penalidade = max(0.0, (st + 2 * lt - 40) / 16.0);
         // cout << "Penalidade: " << penalidade << endl;
 
-        population[i] -> solution = (st * 30 + lt * 40) / 1360.0 - penalidade;
+        ga -> population[i].solution = (st * 30 + lt * 40) / 1360.0 - penalidade;
 
         // cout << "Solução: " << population[i] -> solution << endl << endl;
     }

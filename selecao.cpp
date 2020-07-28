@@ -1,12 +1,15 @@
 #include "GA/GA.hpp"
 
 void selecao_menu(GA* &ga){
-    if(ga->selection_type == "roleta"){
+    if(ga->selection_type == "ROLETA"){
         selecao_roleta(ga);
-    }else if(ga->selection_type == "torneio"){
+
+    }else if(ga->selection_type == "TORNEIO"){
         selecao_torneio(ga);
+
     }else if(ga->selection_type == "vizinhanca"){
         //selecao_vizinhanca(ga);
+
     }else{
         exit(1); 
     }
@@ -57,24 +60,10 @@ void selecao_torneio(GA* &ga){
             selecionado_torneio.push_back(std::pair<int,double>(a, ga -> population[a].solution));
         }
 
-        // double best = 0;
-        // int index_best = -1;
-        // double worse = 1;
-        // int index_worse = 2;
 
         sort(selecionado_torneio.begin(), selecionado_torneio.end(), sortbysec);
 
-        // for(int j = 0; j < ga -> qnt_selecionado; j++){
-        //     if(ga -> population[selecionado_torneio[i]].solution >= best){
-        //         best = ga -> population[selecionado_torneio[i]].solution;
-        //         index_best = selecionado_torneio[i];
-        //     }
 
-        //     if(ga -> population[selecionado_torneio[i]].solution <= worse){
-        //         worse = ga -> population[selecionado_torneio[i]].solution;
-        //         index_worse = selecionado_torneio[i];
-        //     }
-        // }
 
         double kp = dist_real(0,1);
         
@@ -99,10 +88,10 @@ void selecao_torneio(GA* &ga){
 
 void selecao_roleta(GA* &ga){
     double T;
-    vector<double> result(ga->population_size);
+    vector<double> result(ga -> population_size);
     int old_individuo = -1;
-    vector<int> new_individuo(ga->population_size);
-    vector<Individual<int>> old_populacao(ga->population_size); 
+    vector<int> new_individuo(ga -> population_size);
+    vector<Individual<int>> old_populacao(ga -> population_size); 
 
     auto dist_double = [](int min, int max) -> double {               //funcao lambda, retorna double qlqr
                             random_device g_rd;
@@ -128,10 +117,11 @@ void selecao_roleta(GA* &ga){
             incremento = 0.0;
             auxiliar_random = dist_double(0, 1);
             
-            for(int j = 0; j < ga->population_size; j++){
+            for(int j = 0; j < ga -> population_size; j++){
                 if(old_individuo != j){
                     incremento += result[j];
                 }
+                
                 if(incremento > auxiliar_random){
                     new_individuo[i] = j; 
                     old_individuo = j; 

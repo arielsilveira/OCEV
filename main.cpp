@@ -27,7 +27,7 @@ int main(int argc, char const * argv[]){
             // cout << "Duração do fitness: "  << duration.count() << endl;
 
             start = high_resolution_clock::now(); 
-            selecao_torneio(ga);
+            selecao_menu(ga);
             
             stop = high_resolution_clock::now(); 
 
@@ -35,7 +35,7 @@ int main(int argc, char const * argv[]){
             // cout << "Duração do seleção: "  << duration.count() << endl;
 
             start = high_resolution_clock::now(); 
-            crossover_PMX(ga);
+            crossover_menu(ga);
 
             stop = high_resolution_clock::now(); 
 

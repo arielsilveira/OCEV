@@ -1,5 +1,9 @@
-Codificação bin
-Chromossomo 10
-Individual 10
-Min 0
-Max 0
+num_Generation 1000
+population_Size 30
+gene_Size 10
+gene_Type BINARY
+crossover_Probability 0.9
+crossover_Type UM_PONTO
+mutation_Probability 0.05
+mutation_Type BITFLIP
+selection_Type TORNEIO 1 2

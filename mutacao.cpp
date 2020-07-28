@@ -2,7 +2,7 @@
 #include <omp.h>
 
 void mutacao_swap(GA* &ga){
-    if(ga -> gene_type != "INT-PERM") exit(1);
+    // if(ga -> gene_type != "INT-PERM") exit(1);
 
     auto dist_real = [](int min, int max) -> double {
         random_device g_rd;
@@ -41,4 +41,9 @@ void mutacao_swap(GA* &ga){
 
     }
 
+}
+
+
+void bit_flip(GA* &ga){
+    
 }

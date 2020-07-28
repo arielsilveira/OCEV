@@ -47,6 +47,8 @@ GA* read_file(string name){
 
             if(gene_type == "INT-PERM"){
                 file >> min >> max;
+            }else if(gene_type == "INT"){
+                file >> min >> max;
             }
 
         }else if(op == "crossover_Probability"){
@@ -63,6 +65,7 @@ GA* read_file(string name){
         
         }else if(op == "selection_Type"){
             file >> selection_type;
+            
             if(selection_type == "TORNEIO"){
                 file >> k >> qnt_selecionado;
 
@@ -178,21 +181,21 @@ bool sortbysec(const pair<int,double> &a,
     return (a.second < b.second); 
 } 
 
-// int dec_to_bin(vector<Individual *> population, int end,  int init){
-//     int dec = 0;
+int dec_to_bin(Individual<int> population, int end,  int init){
+    int dec = 0;
 
-//     for(int i = init; i < end; i++){
-//         int a = population->chromossomo[(end - 1) - i];
-//         dec += a * pow(2,i);
-//     }
+    for(int i = init; i < end; i++){
+        int a = population.chromossomo[(end - 1) - i];
+        dec += a * pow(2,i);
+    }
 
-//     return dec;
-// }
+    return dec;
+}
 
-// double mapeamento(int valor, int min, int max, int l){
-//     // cout << "Valor = " << valor << endl;
-//     // cout << "Mapeado = ";
-//     // cout << min + (max - min)/(pow(2, l) - 1) * valor << endl;
+double mapeamento(int valor, int min, int max, int l){
+    // cout << "Valor = " << valor << endl;
+    // cout << "Mapeado = ";
+    // cout << min + (max - min)/(pow(2, l) - 1) * valor << endl;
     
-//     return min + (max - min)/(pow(2, l) - 1) * valor;
-// }
+    return min + (max - min)/(pow(2, l) - 1) * valor;
+}

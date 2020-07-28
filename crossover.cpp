@@ -2,16 +2,21 @@
 #include <omp.h>
 
 void crossover_menu(GA* &ga){
-    if(ga->crossover_type == "pmx"){
+    if(ga->crossover_type == "PMX"){
         crossover_PMX(ga);
-    }else if(ga->crossover_type == "um ponto"){
+
+    }else if(ga->crossover_type == "UM_PONTO"){
         one_point(ga);
-    }else if(ga->crossover_type == "dois pontos"){
+    
+    }else if(ga->crossover_type == "DOIS_PONTOS"){
         two_point(ga);
-    }else if(ga->crossover_type == "uniforme"){
+    
+    }else if(ga->crossover_type == "UNIFORME"){
         uniform(ga);
-    }else if(ga->crossover_type == "aritimetico"){
+    
+    }else if(ga->crossover_type == "ARITMETICO"){
         arithmetic(ga);
+    
     }else{
         exit(1); 
     }
@@ -42,8 +47,6 @@ void crossover_PMX(GA* &ga){
     };
 
     double rnd = 0.0;
-    // int corte_init = 0;
-    // int corte_end = 0;
 
 
     vector<vector<int>> new_gene(ga->population_size);
@@ -200,7 +203,7 @@ void two_point(GA* &ga){
         new_population[i] = ga->population[i];
     }
 
-    // Paralelo
+    #pragma omp parallel for
     for(int i = 0; i < ga->population_size; i+=2){
         if(i+1 < ga->population_size){
             rnd = dist_real(0, 1);
@@ -236,6 +239,7 @@ void uniform(GA* &ga){
         new_population[i] = ga->population[i];
     }
 
+    #pragma omp parallel for
     for(int i = 0; i < ga->population_size; i+=2){
         for(int j = 0; j < ga->gene_size; j++){
             double rnd = dist_real(0, 1);
