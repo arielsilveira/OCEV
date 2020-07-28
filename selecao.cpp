@@ -14,6 +14,15 @@ void selecao_menu(GA* &ga){
 
 // ------------------------------------------------------- //
 
+bool selecionado(vector<pair<int, double> > v, int x){
+    for(int i = 0; i < v.size(); i++){
+        if(v[i].first == x){
+            return true;
+        }
+    }
+    return false;
+}
+
 void selecao_torneio(GA* &ga){
 
     auto dist_real = [](int min, int max) -> double {
@@ -33,29 +42,46 @@ void selecao_torneio(GA* &ga){
     };
 
     vector<int> selecao(ga -> population_size, 0);
-
-    
+    // cerr << ga -> qnt_selecionado << endl;
     for(int i = 0; i < ga -> population_size; i++){
+        vector<pair<int, double> > selecionado_torneio;
         int i1 = 0;
         int i2 = 0;
-        
-        do{
-            i1 = dist_int(0, ga -> population_size -1);
-            i2 = dist_int(0, ga -> population_size -1);
-        }while(i1 == i2);   
 
-        if(ga -> population[i2].solution > ga -> population[i1].solution){
-            int aux = i1;
-            i1 = i2;
-            i2 = aux;
+        for(int j = 0; j < ga -> qnt_selecionado; j++){
+            int a;
+            do{
+                a = dist_int(0, ga -> population_size -1);
+
+            }while(selecionado(selecionado_torneio, a));
+            selecionado_torneio.push_back(std::pair<int,double>(a, ga -> population[a].solution));
         }
+
+        // double best = 0;
+        // int index_best = -1;
+        // double worse = 1;
+        // int index_worse = 2;
+
+        sort(selecionado_torneio.begin(), selecionado_torneio.end(), sortbysec);
+
+        // for(int j = 0; j < ga -> qnt_selecionado; j++){
+        //     if(ga -> population[selecionado_torneio[i]].solution >= best){
+        //         best = ga -> population[selecionado_torneio[i]].solution;
+        //         index_best = selecionado_torneio[i];
+        //     }
+
+        //     if(ga -> population[selecionado_torneio[i]].solution <= worse){
+        //         worse = ga -> population[selecionado_torneio[i]].solution;
+        //         index_worse = selecionado_torneio[i];
+        //     }
+        // }
 
         double kp = dist_real(0,1);
         
         if(kp <= ga -> k){
-            selecao[i] = i1;
+            selecao[i] = selecionado_torneio[selecionado_torneio.size() - 1].first;
         }else{
-            selecao[i] = i2;
+            selecao[i] = selecionado_torneio[0].first;
         }
 
     }
@@ -67,11 +93,6 @@ void selecao_torneio(GA* &ga){
         ga -> population[i] = aux[selecao[i]];
     }
 
-    // for(int i = 0; i < ga -> population_size; i++){
-    //     cout << "Indivíduo " << selecao[i] << ": ";
-    //     ga -> population[i].print_individual();
-    //     cout << endl;
-    // }
 }
 
 // ------------------------------------------------------- //

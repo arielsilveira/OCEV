@@ -6,4 +6,4 @@ crossover_Probability 0.90
 crossover_Type PMX
 mutation_Probability 0.02
 mutation_Type SWAP_MUTATION
-selection_Type TORNEIO 1
+selection_Type TORNEIO 1 4

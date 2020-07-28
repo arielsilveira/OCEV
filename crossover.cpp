@@ -1,4 +1,5 @@
 #include "GA/GA.hpp"
+#include <omp.h>
 
 void crossover_menu(GA* &ga){
     if(ga->crossover_type == "pmx"){
@@ -41,17 +42,18 @@ void crossover_PMX(GA* &ga){
     };
 
     double rnd = 0.0;
-    int corte_init = 0;
-    int corte_end = 0;
+    // int corte_init = 0;
+    // int corte_end = 0;
 
 
     vector<vector<int>> new_gene(ga->population_size);
     rnd = dist_real(0,1);
 
     if(ga -> crossover_probability >= rnd){
+        #pragma omp parallel for
         for(int i = 0; i < ga -> population_size; i+=2){
-            corte_init = dist_int(1, ga -> gene_size-3);
-            corte_end = dist_int(corte_init + 1, ga -> gene_size-1);
+            int corte_init = dist_int(1, ga -> gene_size-3);
+            int corte_end = dist_int(corte_init + 1, ga -> gene_size-1);
 
             map<int, int> map_1_to_2;
             map<int, int> map_2_to_1;

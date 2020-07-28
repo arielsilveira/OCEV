@@ -17,6 +17,7 @@ GA* read_file(string name){
     int min = 0;
     int max = 0;
     int v = 0;
+    int qnt_selecionado = 0;
 
     double crossover_probability = 0.0;
     double mutation_probability = 0.0;
@@ -63,7 +64,8 @@ GA* read_file(string name){
         }else if(op == "selection_Type"){
             file >> selection_type;
             if(selection_type == "TORNEIO"){
-                file >> k;
+                file >> k >> qnt_selecionado;
+
             }else if(selection_type == "VIZINHANCA"){
                 file >> v >> criterio;
             }
@@ -85,8 +87,8 @@ GA* read_file(string name){
         }
 
     }
-    cout << "Mutation Probability: " << mutation_probability << endl;
-    return new GA(generation, population_size, gene_size, crossover_probability, mutation_probability, gene_type, crossover_type, mutation_type, selection_type, min, max, k, v, criterio);
+    // cout << "Mutation Probability: " << mutation_probability << endl;
+    return new GA(generation, population_size, gene_size, crossover_probability, mutation_probability, gene_type, crossover_type, mutation_type, selection_type, min, max, k, v, criterio, qnt_selecionado);
 
 }
 
@@ -169,6 +171,12 @@ void final_result(GA* &ga, int pos){
     ga -> media[pos].push_back(media/ga -> population_size);
     ga -> pior[pos].push_back(val_worse);
 }
+
+bool sortbysec(const pair<int,double> &a, 
+              const pair<int,double> &b) 
+{ 
+    return (a.second < b.second); 
+} 
 
 // int dec_to_bin(vector<Individual *> population, int end,  int init){
 //     int dec = 0;

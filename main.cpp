@@ -1,6 +1,6 @@
 #include "GA/GA.hpp"
-
-
+#include <chrono> 
+using namespace std::chrono; 
 
 int main(int argc, char const * argv[]){
     if(argc != 2){
@@ -9,35 +9,60 @@ int main(int argc, char const * argv[]){
         exit(1);
     }
 
-    // double init = 0;
     GA *ga;
     ga = read_file(argv[1]);
     for(int i = 0; i < 10; i++){
+        cerr << "Onde é que eu to? " << i << endl;
         ga -> start_generation();
-    // print_individuals(ga);
+
         ga -> melhor.push_back(vector<double>());
         ga -> media.push_back(vector<double>());
         ga -> pior.push_back(vector<double>());
-
         for(int j = 0; j < ga -> generation; j++){
-            // cout << "Geração " << i << endl;
+            auto start = high_resolution_clock::now(); 
             fitness(ga);
+            auto stop = high_resolution_clock::now(); 
 
+            auto duration = duration_cast<microseconds>(stop - start); 
+            // cout << "Duração do fitness: "  << duration.count() << endl;
+
+            start = high_resolution_clock::now(); 
             selecao_torneio(ga);
-
             
+            stop = high_resolution_clock::now(); 
+
+            duration = duration_cast<microseconds>(stop - start); 
+            // cout << "Duração do seleção: "  << duration.count() << endl;
+
+            start = high_resolution_clock::now(); 
             crossover_PMX(ga);
 
+            stop = high_resolution_clock::now(); 
+
+            duration = duration_cast<microseconds>(stop - start); 
+            // cout << "Duração do crossover: "  << duration.count() << endl;
+            
+            start = high_resolution_clock::now(); 
             mutacao_swap(ga);
-        
+
+            stop = high_resolution_clock::now(); 
+
+            duration = duration_cast<microseconds>(stop - start); 
+            // cout << "Duração do mutação: "  << duration.count() << endl;
+            
+            start = high_resolution_clock::now(); 
             final_result(ga, i);
 
-        }   
+            stop = high_resolution_clock::now(); 
 
+            duration = duration_cast<microseconds>(stop - start); 
+            // cout << "Duração do result: "  << duration.count() << endl;
+        // break;
+        }   
         ga -> population.clear();
     }
 
-    cout << ga -> population.size();
+    // cout << ga -> population.size();
 
     ofstream saida_melhor;
     saida_melhor.open("melhor.txt");
@@ -49,8 +74,6 @@ int main(int argc, char const * argv[]){
     saida_pior.open("pior.txt");
     
 
-
-    cout << "MELHOR" << endl << endl;
     for(int j = 0; j < ga -> generation; j++){
         double soma_melhor = 0.0;
         double soma_media = 0.0;
@@ -65,21 +88,8 @@ int main(int argc, char const * argv[]){
         saida_pior << soma_pior/10 << endl;
     }
     
-    cout << "MEDIA" << endl << endl;
-    for(int j = 0; j < ga -> generation; j++){
-        double soma_melhor = 0.0;
-        for(int i = 0; i < 10; i++){
-        }
-    }
-    
-    for(int j = 0; j < ga -> generation; j++){
-        double soma = 0.0;
-        for(int i = 0; i < 10; i++){
-        }
-    }
 
-
-    cout << "OK" << endl;
+    // cout << "OK" << endl;
 
     return 0;
 }

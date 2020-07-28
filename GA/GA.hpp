@@ -119,6 +119,7 @@ public:
     int min;
     int max;
     int v;
+    int qnt_selecionado;
 
     double k;
     double crossover_probability;
@@ -137,7 +138,7 @@ public:
     vector<vector<double>> media;
     vector<vector<double>> pior;
 
-    GA(int generation, int population_size, int gene_size, double crossover_probability, double mutation_probability, string gene_type, string crossover_type, string mutation_type, string selection_type, int min, int max, double k, int v, string criterio){
+    GA(int generation, int population_size, int gene_size, double crossover_probability, double mutation_probability, string gene_type, string crossover_type, string mutation_type, string selection_type, int min, int max, double k, int v, string criterio, int qnt_selecionado){
 
         this -> generation = generation; 
         this -> population_size = population_size;
@@ -153,6 +154,7 @@ public:
         this -> v = v;
         this -> k = k;
         this -> criterio = criterio;
+        this -> qnt_selecionado = qnt_selecionado;
 
         vector<int> aux(population_size, 0);
         select = aux;
@@ -487,6 +489,9 @@ void arithmetic(GA* &ga);
 void troca_genetica_corte(GA* &ga, int p1, int p2, int corte_init, int corte_end, vector<Individual<int>> &new_population);
 
 void final_result(GA* &ga, int pos);
+
+bool sortbysec(const pair<int,double> &a, 
+              const pair<int,double> &b);
 
 // int dec_to_bin(GA ga, int end, int init);
 
