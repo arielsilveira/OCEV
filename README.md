@@ -1,4 +1,4 @@
-# Repositório de OCEV 
+# Repositório de OCEV  :seedling:
 
 ### Dupla:
     Ariel Agne da Silveira,
@@ -8,7 +8,7 @@
 
 ### To do list:
    
-**1. Seleções**
+#### 1. Seleções
       
       As rotinas de seleção montam a população intermediária
 
@@ -18,8 +18,7 @@
 
       - [ ] Vizinhança
 
-
-2. Crossover 
+#### 2. Crossover 
 
     - [X] PMX
 
@@ -33,8 +32,8 @@
     
     - [ ] BLX-a
 
+#### 3. Mutações 
 
-3. Mutações 
     - [X] Swap mutation
 
     - [ ] Bit flip
@@ -43,18 +42,15 @@
 
     - [ ] Michalewicz
 
-
-4.  Incluir parâmetro de seleção elitista 
+#### 4.  Incluir parâmetro de seleção elitista 
 
     Retira-se o pior individuo da geração atual e no lugar dele deve-se inserir o melhor indivíduo da geração anterior - booleano
 
-
-5. Exercicío 5 
+#### 5. Exercicío 5 
     
     Processamento de jobs em máquinas paralelas
 
-
-6. Gráficos de convergência 
+#### 6. Gráficos de convergência 
 
     * N rainhas
         - [ ] Melhor
@@ -85,5 +81,4 @@
 ### Executando:
 
 `$ g++ NQueen/* GA/* mutacao.cpp selecao.cpp crossover.cpp main.cpp -o ga`
-
 `$ ./ga arq_nqueen`
