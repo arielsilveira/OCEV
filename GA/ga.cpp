@@ -20,6 +20,7 @@ GA* read_file(string name){
     int max = 0;
     int v = 0;
     int qnt_selecionado = 0;
+    int num_execucao = 0;
 
     double crossover_probability = 0.0;
     double mutation_probability = 0.0;
@@ -31,12 +32,13 @@ GA* read_file(string name){
     string selection_type = "";
     string criterio = "";
     string e = "";
-
+    
     while(!file.eof()){
         string op;
         file >> op;
-
-        if( op == "num_Generation"){
+        if(op == "num_execucao"){
+            file >> num_execucao;
+        }else if( op == "num_Generation"){
             file >> generation;
         
         }else if(op =="gene_Size"){
@@ -96,7 +98,7 @@ GA* read_file(string name){
         }
 
     }
-    return new GA(elitismo, generation, population_size, gene_size, crossover_probability, mutation_probability, gene_type, crossover_type, mutation_type, selection_type, min, max, k, v, criterio, qnt_selecionado);
+    return new GA(num_execucao, elitismo, generation, population_size, gene_size, crossover_probability, mutation_probability, gene_type, crossover_type, mutation_type, selection_type, min, max, k, v, criterio, qnt_selecionado);
 
 }
 

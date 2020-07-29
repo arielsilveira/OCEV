@@ -42,9 +42,9 @@
 
     - [ ] Michalewicz
 
-4.  Incluir parâmetro de seleção elitista 
+4.  Parâmetro de seleção elitista 
 
-    Retira-se o pior individuo da geração atual e no lugar dele deve-se inserir o melhor indivíduo da geração anterior - booleano
+    - [X] Elitismo
 
 5. Exercicío 5 
     

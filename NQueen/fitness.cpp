@@ -6,7 +6,6 @@ void fitness(GA* &ga){
     int max_individual = ga -> population_size;
     int max_chromossomo = ga -> gene_size;
 
-    // #pragma omp parallel for
     for(int i = 0; i < max_individual; i++){
 
         collision = 0;

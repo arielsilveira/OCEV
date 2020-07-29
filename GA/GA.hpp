@@ -122,6 +122,7 @@ public:
     int max;
     int v;
     int qnt_selecionado;
+    int num_execucao;
 
     double k;
     double crossover_probability;
@@ -140,7 +141,7 @@ public:
     vector<vector<double>> media;
     vector<vector<double>> pior;
 
-    GA(bool elitismo, int generation, int population_size, int gene_size, double crossover_probability, double mutation_probability, string gene_type, string crossover_type, string mutation_type, string selection_type, int min, int max, double k, int v, string criterio, int qnt_selecionado){
+    GA(int num_execucao, bool elitismo, int generation, int population_size, int gene_size, double crossover_probability, double mutation_probability, string gene_type, string crossover_type, string mutation_type, string selection_type, int min, int max, double k, int v, string criterio, int qnt_selecionado){
 
         this -> generation = generation; 
         this -> population_size = population_size;
@@ -158,7 +159,7 @@ public:
         this -> criterio = criterio;
         this -> qnt_selecionado = qnt_selecionado;
         this -> elitismo = elitismo;
-
+        this -> num_execucao = num_execucao;
         vector<int> aux(population_size, 0);
 
         select = aux;
