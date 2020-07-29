@@ -53,16 +53,16 @@
 6. Gráficos de convergência 
 
     * N rainhas
-        - [ ] Melhor
-        - [ ] Média da população
+        - [X] Melhor
+        - [X] Média da população
  
     * Maximização
-        - [ ] Melhor
-        - [ ] Média da população
+        - [X] Melhor
+        - [X] Média da população
 
     * Rádios
-        - [ ] Melhor
-        - [ ] Média da população
+        - [X] Melhor
+        - [X] Média da população
         
     Para uma execução, o gráfico traz:
 
