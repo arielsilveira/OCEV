@@ -1,0 +1,6 @@
+PROBLEM=Radios
+BEST= 1 1 1 1 1 1 1 1 1 0
+Objective Function=1040
+Rádios Standard=720
+Rádios Luxuosos=320
+Fitness Function=0.764706
