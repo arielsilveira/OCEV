@@ -1,6 +1,36 @@
 #include "GA/GA.hpp"
 #include <chrono> 
+#include <omp.h>
 using namespace std::chrono; 
+
+Individual<int> melhor(GA* &ga){
+    double best_solution = 0;
+    Individual<int> best;
+
+    for(int i = 0; i < ga -> population_size; i++){
+        if(ga -> population[i].solution > best_solution){
+            best_solution = ga -> population[i].solution;
+            best = ga -> population[i];
+        }
+    }
+
+    return best;
+}
+
+void swap_worse(GA* &ga, Individual<int> best){
+    double worse = 10;
+    int index = 0;
+
+    for(int i = 0; i < ga -> population_size; i++){
+        if(ga -> population[i].solution < worse){
+            index = i;
+            worse = ga -> population[i].solution;
+        }
+    }
+
+    ga -> population[index] = best;
+
+}
 
 int main(int argc, char const * argv[]){
     if(argc != 2){
@@ -9,8 +39,15 @@ int main(int argc, char const * argv[]){
         exit(1);
     }
 
+/*
+auto start = high_resolution_clock::now(); 
+auto stop = high_resolution_clock::now(); 
+auto duration = duration_cast<microseconds>(stop - start); 
+*/
+
     GA *ga;
     ga = read_file(argv[1]);
+
     for(int i = 0; i < 10; i++){
         cerr << "Onde é que eu to? " << i << endl;
         ga -> start_generation();
@@ -19,50 +56,32 @@ int main(int argc, char const * argv[]){
         ga -> media.push_back(vector<double>());
         ga -> pior.push_back(vector<double>());
         for(int j = 0; j < ga -> generation; j++){
-            auto start = high_resolution_clock::now(); 
+            Individual<int> best;
+
             fitness(ga);
-            auto stop = high_resolution_clock::now(); 
 
-            auto duration = duration_cast<microseconds>(stop - start); 
-            // cout << "Duração do fitness: "  << duration.count() << endl;
+            if(ga -> elitismo){
+                best = melhor(ga);
+            }            
 
-            start = high_resolution_clock::now(); 
             selecao_menu(ga);
             
-            stop = high_resolution_clock::now(); 
-
-            duration = duration_cast<microseconds>(stop - start); 
-            // cout << "Duração do seleção: "  << duration.count() << endl;
-
-            start = high_resolution_clock::now(); 
             crossover_menu(ga);
 
-            stop = high_resolution_clock::now(); 
 
-            duration = duration_cast<microseconds>(stop - start); 
-            // cout << "Duração do crossover: "  << duration.count() << endl;
-            
-            start = high_resolution_clock::now(); 
-            mutacao_swap(ga);
+            mutacao_menu(ga);
 
-            stop = high_resolution_clock::now(); 
 
-            duration = duration_cast<microseconds>(stop - start); 
-            // cout << "Duração do mutação: "  << duration.count() << endl;
-            
-            start = high_resolution_clock::now(); 
+            if(ga -> elitismo){
+                swap_worse(ga, best);
+            }
+
             final_result(ga, i);
 
-            stop = high_resolution_clock::now(); 
-
-            duration = duration_cast<microseconds>(stop - start); 
-            // cout << "Duração do result: "  << duration.count() << endl;
-        // break;
         }   
         ga -> population.clear();
     }
 
-    // cout << ga -> population.size();
 
     ofstream saida_melhor;
     saida_melhor.open("melhor.txt");
@@ -89,7 +108,6 @@ int main(int argc, char const * argv[]){
     }
     
 
-    // cout << "OK" << endl;
 
     return 0;
 }

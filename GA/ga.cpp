@@ -11,6 +11,8 @@ GA* read_file(string name){
         exit(0);
     }
 
+    bool elitismo = false;
+
     int generation = 0;
     int population_size = 0;
     int gene_size = 0;
@@ -28,6 +30,7 @@ GA* read_file(string name){
     string mutation_type = "";
     string selection_type = "";
     string criterio = "";
+    string e = "";
 
     while(!file.eof()){
         string op;
@@ -48,6 +51,8 @@ GA* read_file(string name){
             if(gene_type == "INT-PERM"){
                 file >> min >> max;
             }else if(gene_type == "INT"){
+                file >> min >> max;
+            }else if(gene_type == "REAL"){
                 file >> min >> max;
             }
 
@@ -72,7 +77,8 @@ GA* read_file(string name){
             }else if(selection_type == "VIZINHANCA"){
                 file >> v >> criterio;
             }
-
+        }else if(op == "ELITISMO"){
+            file >> elitismo;
         }else{
             cout << "Erro na entrada dos dados" << endl;
             cout << "Formato do arquivo:" << endl;
@@ -90,8 +96,7 @@ GA* read_file(string name){
         }
 
     }
-    // cout << "Mutation Probability: " << mutation_probability << endl;
-    return new GA(generation, population_size, gene_size, crossover_probability, mutation_probability, gene_type, crossover_type, mutation_type, selection_type, min, max, k, v, criterio, qnt_selecionado);
+    return new GA(elitismo, generation, population_size, gene_size, crossover_probability, mutation_probability, gene_type, crossover_type, mutation_type, selection_type, min, max, k, v, criterio, qnt_selecionado);
 
 }
 
@@ -181,21 +186,3 @@ bool sortbysec(const pair<int,double> &a,
     return (a.second < b.second); 
 } 
 
-int dec_to_bin(Individual<int> population, int end,  int init){
-    int dec = 0;
-
-    for(int i = init; i < end; i++){
-        int a = population.chromossomo[(end - 1) - i];
-        dec += a * pow(2,i);
-    }
-
-    return dec;
-}
-
-double mapeamento(int valor, int min, int max, int l){
-    // cout << "Valor = " << valor << endl;
-    // cout << "Mapeado = ";
-    // cout << min + (max - min)/(pow(2, l) - 1) * valor << endl;
-    
-    return min + (max - min)/(pow(2, l) - 1) * valor;
-}

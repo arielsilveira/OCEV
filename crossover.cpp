@@ -158,7 +158,6 @@ void one_point(GA* &ga){
         new_population[i] = ga->population[i];          //guarda os inteiros selecionados
     }
 
-    // Paralelo
     for(int i = 0; i < ga->population_size; i+=2){
         if(i+1 < ga->population_size){
             rnd = dist_real(0, 1);
@@ -296,7 +295,8 @@ void arithmetic(GA* &ga){
 
 //Função auxiliar de corte 
 void troca_genetica_corte(GA* &ga, int p1, int p2, int corte_init, int corte_end, vector<Individual<int>> &new_population){
-    // paralelo
+    
+    #pragma omp parallel for
     for(int i = 0; i < ga->gene_size; i++){
         if(i >= corte_init && i <= corte_end){
             int f1 = new_population[p1].chromossomo[i];

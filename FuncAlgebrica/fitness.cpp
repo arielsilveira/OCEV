@@ -1,19 +1,30 @@
 #include "../GA/GA.hpp"
 
 void fitness(GA* &ga){
-    long int dec = 0;
+    int dec = 0;
     int max_chromossomo = ga -> gene_size;
 
-    for(int k = 0; k < ga -> population_size; k++){
-        dec = 0;
-        
-        dec = dec_to_bin(ga -> population[k], max_chromossomo, 0);
-        
-        double x = 0;
+    auto to_dec = [&](int start, int qnt, int k) -> int {
+        int res = 0;
+        for(int i = start; i < qnt; i++){
+            res += ga->population[k].chromossomo[i] * pow(2, i);
+        }
+        return res;
+    };
 
-        x = mapeamento(dec, -4, 2, 16);
-        //  + ((2 - (-4)) / (pow(2,16) - 1)) * dec;
-        ga -> population[k].solution = (x + 4)/6.0;
+    auto mapa = [](int valor, int minimo, int maximo) -> double {
+        double res = minimo + ((maximo - minimo) / (double) ((1 << 16) - 1)) * valor;
+        return res;
+    };
+
+    for(int k = 0; k < ga -> population_size; k++){
+        dec = to_dec(0, ga->gene_size, k);
+
+        double x = mapa(dec, -2, 2);
+
+        double func_objetivo = cos(20*x) - (abs(x)/2.0) + (pow(x, 3)/4.0);
+
+        ga -> population[k].solution = (func_objetivo + 4)/6.0;
 
     }
 }

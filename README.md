@@ -36,9 +36,9 @@
 
     - [X] Swap mutation
 
-    - [ ] Bit flip
+    - [X] Bit flip
 
-    - [ ] Valor aleatório do domínio de variáveis
+    - [X] Valor aleatório do domínio de variáveis
 
     - [ ] Michalewicz
 
@@ -80,6 +80,6 @@
 
 ### Executando:
 
-`$ g++ NQueen/* GA/* mutacao.cpp selecao.cpp crossover.cpp main.cpp -o ga`
+`$ make PASTA=_nome_pasta_`
 
-`$ ./ga arq_nqueen`
+`$ ./ga nome_arquivo`

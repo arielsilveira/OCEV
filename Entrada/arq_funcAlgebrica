@@ -1,9 +1,10 @@
 num_Generation 1000
 population_Size 10
-gene_Size 4
-gene_Type INT -2 2
+gene_Size 16
+gene_Type BINARY
 crossover_Probability 0.95
 crossover_Type DOIS_PONTOS
-mutation_Probability 0.05
-mutation_Type SWAP_MUTATION
+mutation_Probability 0.02
+mutation_Type BITFLIP
 selection_Type ROLETA
+ELITISMO 1
