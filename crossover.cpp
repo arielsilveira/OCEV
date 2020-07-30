@@ -55,8 +55,8 @@ void crossover_PMX(GA* &ga){
         vector<pair<int, int>> corte(ga -> population_size, pair<int, int>(0,0));
         vector<vector<int>> new_gene(ga->population_size, vector<int>(0));
         
-        vector<map<int, int> > map_1_to_2(ga -> population_size, map<int, int>(0,0));
-        vector<map<int, int> > map_2_to_1(ga -> population_size);
+        vector<vector< map<int, int> > > map_1_to_2(ga -> population_size);
+        vector<vector< map<int, int> > > map_2_to_1(ga -> population_size);
 
         #pragma omp parallel for
         for(int i = 0; i < ga -> population_size; i+=2){
@@ -64,7 +64,8 @@ void crossover_PMX(GA* &ga){
             int corte_end = dist_int(corte_init + 1, ga -> gene_size-1);
 
             // corte.push_back(pair<int,int>(corte_init, corte_end));
-
+            map<int, int> mapa1;
+            map<int, int> mapa2;
             for(int j = corte[i].first; j < corte[i].second; j++){
 
                 int f1 = ga -> population[i].chromossomo[j];
@@ -73,10 +74,13 @@ void crossover_PMX(GA* &ga){
                 ga -> population[i].chromossomo[j] = f2;
                 ga -> population[i+1].chromossomo[j] = f1;
 
-                map_1_to_2[i][f1] = f2;
-                map_2_to_1[i][f2] = f1;
+                mapa1[f1] = f2;
+                mapa2[f2] = f1;
 
             }
+
+            map_1_to_2[i].push_back(mapa1);
+            map_2_to_1[i].push_back(mapa1);
         }
 
         #pragma omp parallel for
@@ -106,12 +110,12 @@ void crossover_PMX(GA* &ga){
                     int f1 = ga -> population[i].chromossomo[j];
                     int f2 = ga -> population[i+1].chromossomo[j];
 
-                    if(map_2_to_1[i].count(f1) > 0){
-                        int val = map_2_to_1[i][f1];
+                    if(map_2_to_1[i][0].count(f1) > 0){
+                        int val = map_2_to_1[i][0][f1];
 
-                        while(map_2_to_1[i].count(val) > 0 && val != f1){
+                        while(map_2_to_1[i][0].count(val) > 0 && val != f1){
                             
-                            val = map_2_to_1[i][val];
+                            val = map_2_to_1[i][0][val];
 
                         }
                         new_gene[i].push_back(val);
@@ -120,14 +124,14 @@ void crossover_PMX(GA* &ga){
                         new_gene[i].push_back(f1);
                     }
 
-                    if(map_1_to_2[i].count(f2) > 0){
+                    if(map_1_to_2[i][0].count(f2) > 0){
 
-                        int val = map_1_to_2[i][f2];
+                        int val = map_1_to_2[i][0][f2];
                         
 
-                        while(map_1_to_2[i].count(val) > 0 && val != f2){
+                        while(map_1_to_2[i][0].count(val) > 0 && val != f2){
                             
-                            val = map_1_to_2[i][val];
+                            val = map_1_to_2[i][0][val];
 
                         }
                         new_gene[i+1].push_back(val);
