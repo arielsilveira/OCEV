@@ -2,13 +2,13 @@
 #include <omp.h>
 
 void fitness(GA* &ga){
-    double collision = 0;
     int max_individual = ga -> population_size;
     int max_chromossomo = ga -> gene_size;
 
+    #pragma omp parallel for
     for(int i = 0; i < max_individual; i++){
 
-        collision = 0;
+        double collision = 0;
         for(int j = 0; j < max_chromossomo; j++){
             int ok = 1;
             for(int k = 0; k < max_chromossomo; k++){

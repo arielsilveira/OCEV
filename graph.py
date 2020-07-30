@@ -30,7 +30,7 @@ with open('config.txt', 'r') as dataset:
 
 pl.plot(solucoes_melhor, color='green')
 pl.plot(solucoes_media, color='gold')
-# pl.plot(solucoes_pior, color='red')
+pl.plot(solucoes_pior, color='red')
 
 worse = 2
 best = 0
@@ -45,8 +45,8 @@ for i in range(0, len(solucoes_pior)):
 
 limit_worse = worse - 0.05
 limit_best = best + 0.05
-limit_x_low = -0.05
-limit_x_high = 1001
+limit_x_low = -50
+limit_x_high = 1050
 
 solution = 'Melhor solução: '+ str(best)
 
