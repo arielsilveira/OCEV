@@ -48,9 +48,7 @@ int main(int argc, char const * argv[]){
     }
 
 /*
-auto start = high_resolution_clock::now(); 
-auto stop = high_resolution_clock::now(); 
-auto duration = duration_cast<microseconds>(stop - start); 
+
 */
 
     GA *ga;
@@ -59,29 +57,32 @@ auto duration = duration_cast<microseconds>(stop - start);
     double best_val = 0;
     
     for(int i = 0; i < ga -> num_execucao; i++){
+        auto start = high_resolution_clock::now(); 
         cerr << "Iteração: " << i << endl;
         ga -> start_generation();
 
         ga -> melhor.push_back(vector<double>());
         ga -> media.push_back(vector<double>());
         ga -> pior.push_back(vector<double>());
+
+        fitness(ga);
+
         for(int j = 0; j < ga -> generation; j++){
             Individual<int> best;
-
-            fitness(ga);
 
             if(ga -> elitismo){
                 best = melhor(ga);
             }            
 
+
             selecao_menu(ga);
             
             crossover_menu(ga);
 
-
             mutacao_menu(ga);
 
-
+            fitness(ga);
+            
             if(ga -> elitismo){
                 swap_worse(ga, best);
             }
@@ -97,6 +98,9 @@ auto duration = duration_cast<microseconds>(stop - start);
 
         }   
         ga -> population.clear();
+        auto stop = high_resolution_clock::now(); 
+        auto duration = duration_cast<microseconds>(stop - start); 
+        cerr << "Duração= " << duration.count() << endl;
     }
 
 
@@ -140,7 +144,8 @@ auto duration = duration_cast<microseconds>(stop - start);
     config << "Objective Function=";
 
     if(arq == "arq_nqueen"){
-        auto lambda_nqueens = [](vector<int> best_solution) -> int{
+        int qnt_collision = 0;
+        auto lambda_nqueens = [&](vector<int> best_solution) -> int{
             int collision = 0;
 
             for(int j = 0; j < best_solution.size(); j++){
@@ -156,11 +161,12 @@ auto duration = duration_cast<microseconds>(stop - start);
         
             if(!ok) collision++;
             }
-
+            qnt_collision = collision;
             return (best_solution.size() * (best_solution.size() - collision));
         };
         
         config << lambda_nqueens(best_solution) << endl;
+        config << "Quantidade de colisão = " << qnt_collision << endl;
 
     }else if(arq == "arq_Radios"){
         int st, lt;
@@ -190,7 +196,8 @@ auto duration = duration_cast<microseconds>(stop - start);
         config << "Luxuosos=" << lt << endl;
 
     }else if(arq == "arq_funcAlgebrica"){
-        auto lambda_funcao = [](vector<int> best_solution) -> double{
+        double val_x = 0;
+        auto lambda_funcao = [&val_x](vector<int> best_solution) -> double{
             auto to_dec = [&](int start, int qnt) -> int {
                 int res = 0;
                 for(int i = start; i < qnt; i++){
@@ -207,13 +214,43 @@ auto duration = duration_cast<microseconds>(stop - start);
             int dec = to_dec(0, best_solution.size());
 
             double x = mapa(dec, -2, 2);
-
+            val_x = x;
             return cos(20*x) - (abs(x)/2.0) + (pow(x, 3)/4.0);
         };
                 
         config << lambda_funcao(best_solution) << endl;
+        config << "X = " << val_x << endl;
     }
             
-            config << "Fitness Function=" << best_val << endl;
-            return 0;
-        }
+    config << "Fitness Function=" << best_val << endl;
+
+    double media = 0;
+    long double desvio = 0;
+    
+    for(int i = 0; i < ga -> num_execucao; i++){
+        // for(int j = 0; j < ; j++){
+            // media += ga -> melhor[i][j];
+            media += ga -> melhor[i][ga -> generation - 1];
+            // media += ga -> pior[i][j];
+        // }
+    }
+
+    cerr << "Média = " << media << endl;
+    media = media/(ga -> num_execucao); 
+
+    
+    for(int i = 0; i < ga -> num_execucao; i++){
+        // for(int j = 0; j < ; j++){
+        desvio += pow(ga -> melhor[i][ga -> generation - 1] - media, 2);
+        // }
+    }
+
+    cerr << desvio << endl;
+
+    desvio = desvio /(ga -> num_execucao * ga -> generation);
+    desvio = sqrt(desvio);
+
+    config << "Média=" << media << endl;
+    config << "Desvio=" << desvio << endl;
+    return 0;
+}

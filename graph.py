@@ -28,10 +28,10 @@ with open('config.txt', 'r') as dataset:
 		if info == "PROBLEM":
 			title = line
 
-pl.plot(solucoes_melhor, color='green')
-pl.plot(solucoes_media, color='gold')
-pl.plot(solucoes_pior, color='red')
-
+pl.plot(solucoes_melhor, label='Melhor indivíduo',color='green')
+pl.plot(solucoes_media, label='Média da população', color='gold')
+pl.plot(solucoes_pior, label='Pior indivíduo', color='red')
+pl.legend()
 worse = 2
 best = 0
 
