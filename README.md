@@ -46,9 +46,11 @@
 
     - [X] Elitismo
 
-5. Exercicío 5 
+5. Exercicíos
     
-    Processamento de jobs em máquinas paralelas
+    [X] Processamento de jobs em máquinas paralelas (Exercicío 6)
+
+    [X] NQueens valoradas (Exercicío 7) 
 
 6. Gráficos de convergência 
 
@@ -83,3 +85,12 @@
 `$ make PASTA=_nome_pasta_`
 
 `$ ./ga nome_arquivo`
+
+Para gerar o gráfico: 
+
+`$ python3 graph.py `
+
+
+
+
+

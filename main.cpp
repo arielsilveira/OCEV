@@ -142,9 +142,10 @@ int main(int argc, char const * argv[]){
     }
     config << endl;
     config << "Objective Function=";
+    
+    int qnt_collision = 0;
 
     if(arq == "arq_nqueen"){
-        int qnt_collision = 0;
         auto lambda_nqueens = [&](vector<int> best_solution) -> int{
             int collision = 0;
 
@@ -166,7 +167,7 @@ int main(int argc, char const * argv[]){
         };
         
         config << lambda_nqueens(best_solution) << endl;
-        config << "Quantidade de colisão = " << qnt_collision << endl;
+        config << "Quantidade de colisão=" << qnt_collision << endl;
 
     }else if(arq == "arq_Radios"){
         int st, lt;
@@ -235,8 +236,7 @@ int main(int argc, char const * argv[]){
         // }
     }
 
-    cerr << "Média = " << media << endl;
-    media = media/(ga -> num_execucao); 
+    media = (media/(ga -> num_execucao) - qnt_collision); 
 
     
     for(int i = 0; i < ga -> num_execucao; i++){
@@ -245,12 +245,24 @@ int main(int argc, char const * argv[]){
         // }
     }
 
-    cerr << desvio << endl;
-
-    desvio = desvio /(ga -> num_execucao * ga -> generation);
+    desvio = (desvio /(ga -> num_execucao * ga -> generation) - qnt_collision);
     desvio = sqrt(desvio);
 
     config << "Média=" << media << endl;
     config << "Desvio=" << desvio << endl;
+
+    //Printando o tabuleiro
+    for(int i = 0; i < best_solution.size(); i++){
+            config << "| " ;
+        for(int j = 0; j < best_solution.size(); j++){
+            if(best_solution[i] == j){
+                config << "R" << " " ;
+            }else{
+                config << "-" << " " ;
+            }
+        }
+        config << "|" << endl;
+    }
+
     return 0;
 }

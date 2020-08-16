@@ -27,6 +27,7 @@ with open('config.txt', 'r') as dataset:
 		info, line = line.split('=')
 		if info == "PROBLEM":
 			title = line
+			break
 
 pl.plot(solucoes_melhor, label='Melhor indivíduo',color='green')
 pl.plot(solucoes_media, label='Média da população', color='gold')
@@ -46,7 +47,7 @@ for i in range(0, len(solucoes_pior)):
 limit_worse = worse - 0.05
 limit_best = best + 0.05
 limit_x_low = -50
-limit_x_high = 1050
+limit_x_high = 3050
 
 solution = 'Melhor solução: '+ str(best)
 

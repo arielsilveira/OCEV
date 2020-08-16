@@ -1,8 +1,8 @@
 num_execucao 10
-num_Generation 1000
+num_Generation 3000
 population_Size 30
-gene_Size 64
-gene_Type INT-PERM 0 63
+gene_Size 8
+gene_Type INT-PERM 0 7
 crossover_Probability 0.90
 crossover_Type PMX
 mutation_Probability 0.02
