@@ -162,11 +162,15 @@ void final_result(GA* &ga, int pos){
     int individual = ga -> population_size;
 
     double media = 0;
+    double t = 0;
 
     for (int i = 0; i < individual; i++){
         if(ga -> population[i].solution > val_best){
             val_best = ga -> population[i].solution;
             index_best = i;
+            if(ga -> population[i].collision == 0){
+                t = ga -> population[i].solution;
+            }
         }
 
         if(ga -> population[i].solution < val_worse){
@@ -175,11 +179,14 @@ void final_result(GA* &ga, int pos){
         }
 
         media += ga -> population[i].solution;
+
+
     }
 
     ga -> melhor[pos].push_back(val_best);
     ga -> media[pos].push_back(media/ga -> population_size);
     ga -> pior[pos].push_back(val_worse);
+    ga -> melhor_media[pos].push_back(t);
 }
 
 bool sortbysec(const pair<int,double> &a, 

@@ -23,7 +23,7 @@ void fitness(GA* &ga){
             if(!ok) collision++;
 
         }
-// começa a magica
+
         double maxi_Value = [&](){
             int tam = ga -> gene_size;
             double tot = 0;
@@ -43,5 +43,7 @@ void fitness(GA* &ga){
         double val_nqueen = (max_chromossomo * (max_chromossomo - collision))/(double)(pow(max_chromossomo, 2));
         ga -> population[i].solution = (val_pos + val_nqueen)/2.0;
         
+        ga -> population[i].collision = collision;
+        ga -> population[i].FO = val + (max_chromossomo * (max_chromossomo - collision));
     }
 }

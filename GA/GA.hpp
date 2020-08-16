@@ -11,6 +11,8 @@ public:
     vector<T> chromossomo;
     string gene_type;
     int min, max;
+    int collision;
+    double FO;
 
     double solution = 0.0;
     Individual(){}
@@ -19,6 +21,8 @@ public:
         this -> gene_type = gene_type;
         this -> min = min;
         this -> max = max;
+        this -> collision = 0;
+        this -> FO = 0;
 
         chromossomo = vector<T>(gene_size);
 
@@ -140,6 +144,7 @@ public:
     vector<vector<double>> melhor;
     vector<vector<double>> media;
     vector<vector<double>> pior;
+    vector<vector<double>> melhor_media;
 
     GA(int num_execucao, bool elitismo, int generation, int population_size, int gene_size, double crossover_probability, double mutation_probability, string gene_type, string crossover_type, string mutation_type, string selection_type, int min, int max, double k, int v, string criterio, int qnt_selecionado){
 
@@ -160,6 +165,7 @@ public:
         this -> qnt_selecionado = qnt_selecionado;
         this -> elitismo = elitismo;
         this -> num_execucao = num_execucao;
+        
         vector<int> aux(population_size, 0);
 
         select = aux;

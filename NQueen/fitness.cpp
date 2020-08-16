@@ -25,6 +25,8 @@ void fitness(GA* &ga){
         }
 
         ga -> population[i].solution = (max_chromossomo * (max_chromossomo - collision))/(double)(pow(max_chromossomo, 2));
+        ga -> population[i].FO = (max_chromossomo * (max_chromossomo - collision));
+        ga -> population[i].collision = collision;
     }
 
 }
