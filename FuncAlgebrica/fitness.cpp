@@ -25,6 +25,8 @@ void fitness(GA* &ga){
         double func_objetivo = cos(20*x) - (abs(x)/2.0) + (pow(x, 3)/4.0);
 
         ga -> population[k].solution = (func_objetivo + 4)/6.0;
+        ga -> population[k].FO = func_objetivo;
+        ga -> population[k].collision = 0;
 
     }
 }

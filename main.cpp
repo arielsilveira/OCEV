@@ -157,7 +157,6 @@ int main(int argc, char const * argv[]){
 
     ofstream config;
     config.open("config.txt");
-// cerr << individual_index << endl;
     config << "PROBLEM=" << title << endl;
     config << "BEST=";
     for(int i = 0; i < BI.chromossomo.size(); i++){
@@ -166,31 +165,8 @@ int main(int argc, char const * argv[]){
     config << endl;
     config << "Objective Function=";
     
-    // int qnt_collision = 0;
 
     if(arq == "arq_nqueen"){
-        // auto lambda_nqueens = [&](vector<int> best_solution) -> int{
-        //     int collision = 0;
-
-        //     for(int j = 0; j < best_solution.size(); j++){
-        //         int ok = 1;
-        //         for(int k = 0; k < best_solution.size(); k++){
-        //             if (j == k ) continue;
-        //             if(abs(best_solution[j] - best_solution[k]) == abs(j - k)){
-        //                 ok = 0;
-        //                 break;
-        //             }
-
-        //         }
-        
-        //     if(!ok) collision++;
-        //     }
-        //     qnt_collision = collision;
-        //     return (best_solution.size() * (best_solution.size() - collision));
-        // };
-        
-        // config << lambda_nqueens(best_solution) << endl;
-        // config << "Quantidade de colisão=" << qnt_collision << endl;
         config << BI.FO << endl;
         config << "Quantidade de colisão=" << BI.colisao << endl;
 
@@ -255,17 +231,10 @@ int main(int argc, char const * argv[]){
     double div = 0;
     
     for(int i = 0; i < ga -> num_execucao; i++){
-        // for(int j = 0; j < ; j++){
-            // media += ga -> melhor[i][j];
-            if(ga -> melhor_media[i][ga -> generation - 1] == 0){
+            if(ga -> melhor_media[i][ga -> generation - 1] != 0){
                 media += ga -> melhor_media[i][ga -> generation - 1];
                 div++;
             }
-            
-            cerr << ga -> melhor_media[i][ga -> generation - 1] << endl;
-            cerr << ga -> melhor[i][ga -> generation - 1] << endl;
-            // media += ga -> pior[i][j];
-        // }
     }
 
     if(div == 0){
@@ -276,9 +245,7 @@ int main(int argc, char const * argv[]){
 
     
     for(int i = 0; i < ga -> num_execucao; i++){
-        // for(int j = 0; j < ; j++){
         desvio += pow(ga -> melhor_media[i][ga -> generation - 1] - media, 2);
-        // }
     }
 
     desvio = (desvio /div);

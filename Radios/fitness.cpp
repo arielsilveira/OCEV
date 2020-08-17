@@ -29,6 +29,7 @@ void fitness(GA* &ga){
 
         ga -> population[i].solution = (st * 30 + lt * 40) / 1360.0 - penalidade;
         ga -> population[i].FO = (st * 30 + lt * 40);
+        ga -> population[i].collision = 0;
     }
 
 }
