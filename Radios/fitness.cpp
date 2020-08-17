@@ -28,7 +28,7 @@ void fitness(GA* &ga){
         double penalidade = max(0.0, (st + 2 * lt - 40) / 16.0);
 
         ga -> population[i].solution = (st * 30 + lt * 40) / 1360.0 - penalidade;
-
+        ga -> population[i].FO = (st * 30 + lt * 40);
     }
 
 }

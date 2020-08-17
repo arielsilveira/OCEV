@@ -71,11 +71,6 @@ int main(int argc, char const * argv[]){
 
     GA *ga;
     ga = read_file(argv[1]);
-    // vector<int> best_solution(ga->gene_size);
-    // double solution = 0;
-    // int individual_index = 0;
-    // int colisao = 0;
-    // int FO = 0;
     
     for(int i = 0; i < ga -> num_execucao; i++){
         auto start = high_resolution_clock::now(); 
@@ -257,7 +252,7 @@ int main(int argc, char const * argv[]){
 
     double media = 0;
     long double desvio = 0;
-    int div = 0;
+    double div = 0;
     
     for(int i = 0; i < ga -> num_execucao; i++){
         // for(int j = 0; j < ; j++){
@@ -272,7 +267,7 @@ int main(int argc, char const * argv[]){
             // media += ga -> pior[i][j];
         // }
     }
-    
+
     if(div == 0){
         div = 1;
     }
