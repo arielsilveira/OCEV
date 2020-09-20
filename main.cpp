@@ -71,6 +71,8 @@ int main(int argc, char const * argv[]){
 
     GA *ga;
     ga = read_file(argv[1]);
+
+    double media_time = 0.0;
     
     for(int i = 0; i < ga -> num_execucao; i++){
         auto start = high_resolution_clock::now(); 
@@ -122,10 +124,12 @@ int main(int argc, char const * argv[]){
         }   
         
         auto stop = high_resolution_clock::now(); 
-        auto duration = duration_cast<microseconds>(stop - start); 
+        auto duration = duration_cast<seconds>(stop - start);          //Calcula o tempo
+        media_time += duration.count();
         cerr << "Duração= " << duration.count() << endl;
     }
 
+    cerr << (media_time/ga->num_execucao)  << endl;  
 
     ofstream saida_melhor;
     saida_melhor.open("melhor.txt");

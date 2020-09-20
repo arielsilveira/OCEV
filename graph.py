@@ -31,7 +31,7 @@ with open('config.txt', 'r') as dataset:
 
 pl.plot(solucoes_melhor, label='Melhor indivíduo',color='green')
 pl.plot(solucoes_media, label='Média da população', color='gold')
-pl.plot(solucoes_pior, label='Pior indivíduo', color='red')
+#pl.plot(solucoes_pior, label='Pior indivíduo', color='red')
 pl.legend()
 worse = 2
 best = 0
@@ -47,9 +47,9 @@ for i in range(0, len(solucoes_pior)):
 limit_worse = worse - 0.05
 limit_best = best + 0.05
 limit_x_low = -50
-limit_x_high = 3050
+limit_x_high = 5050
 
-solution = 'Melhor solução: '+ str(best)
+solution = 'Media da Fitness do melhor individuo: '+ str(best)
 
 pl.title(title+' -- '+ solution)
 pl.xlabel('Gerações')

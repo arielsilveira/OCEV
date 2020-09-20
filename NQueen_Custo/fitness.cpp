@@ -39,11 +39,12 @@ void fitness(GA* &ga){
             val += (j % 2 == 0 ) ? sqrt(pos) : log10(pos);
         }
 
+        //Bloco de fitness
         double val_pos = val/maxi_Value;
         double val_nqueen = (max_chromossomo * (max_chromossomo - collision))/(double)(pow(max_chromossomo, 2));
         ga -> population[i].solution = (val_pos + val_nqueen)/2.0;
         
         ga -> population[i].collision = collision;
-        ga -> population[i].FO = val + (max_chromossomo * (max_chromossomo - collision));
+        ga -> population[i].FO = val + (max_chromossomo * (max_chromossomo - collision));       //Calculo da funcao objetivo 
     }
 }
