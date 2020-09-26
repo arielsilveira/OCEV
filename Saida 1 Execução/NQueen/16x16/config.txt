@@ -1,4 +1,0 @@
-PROBLEM=NQueens
-BEST= 13 6 0 7 5 12 14 1 8 15 2 10 3 9 11 4
-Objective Function=256
-Fitness Function=1

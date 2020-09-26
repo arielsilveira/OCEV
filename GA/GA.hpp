@@ -9,12 +9,15 @@ private:
 
 public:
     vector<T> chromossomo;
+    vector<vector<int> > map;
     string gene_type;
+
     int min, max;
     int collision;
-    double FO;
 
+    double FO;
     double solution = 0.0;
+
     Individual(){}
 
     Individual(string gene_type, int gene_size, int min, int max){

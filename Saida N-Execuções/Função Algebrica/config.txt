@@ -1,4 +1,0 @@
-PROBLEM=Função Algébrica
-BEST= 0 0 1 1 1 1 1 1 0 0 0 1 1 1 1 1
-Objective Function=1.73777
-Fitness Function=0.956294

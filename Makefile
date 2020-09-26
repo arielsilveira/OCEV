@@ -1,4 +1,4 @@
-FILES = mutacao.cpp selecao.cpp crossover.cpp main.cpp
+FILES = mutacao.cpp selecao.cpp crossover.cpp main.cpp 
 GA = GA/ga.cpp
 LIBRARY = -fopenmp -Ofast
 END = -o ga

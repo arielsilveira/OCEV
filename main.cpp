@@ -1,6 +1,7 @@
 #include "GA/GA.hpp"
 #include <chrono> 
 #include <omp.h>
+
 using namespace std::chrono; 
 
 
@@ -19,22 +20,6 @@ public:
     }
 };
 
-
-
-Individual<int> melhor(GA* &ga){
-    double best_solution = 0;
-    Individual<int> best;
-
-    for(int i = 0; i < ga -> population_size; i++){
-        if(ga -> population[i].solution > best_solution){
-            best_solution = ga -> population[i].solution;
-            best = ga -> population[i];
-        }
-    }
-
-    return best;
-}
-
 void swap_worse(GA* &ga, Individual<int> best){
     double worse = 10;
     int index = -1;
@@ -49,6 +34,22 @@ void swap_worse(GA* &ga, Individual<int> best){
 
 }
 
+Individual<int> getBest(GA* &ga){
+    double best_solution = 0;
+    Individual<int> best;
+
+    for(int i = 0; i < ga -> population_size; i++){
+        if(ga -> population[i].solution > best_solution){
+            best_solution = ga -> population[i].solution;
+            best = ga -> population[i];
+        }
+    }
+
+    return best;
+}
+
+
+
 int main(int argc, char const * argv[]){
     if(argc != 2){
         cout << "Falha na passagem de parâmetros" << endl;
@@ -56,15 +57,29 @@ int main(int argc, char const * argv[]){
         exit(1);
     }
     
+    vector<vector<int> > map;
     string title; 
     string arq = argv[1];
 
-    if(arq == "arq_nqueen"){
+    int line, column;
+
+
+    if(arq == "arq_Nqueen"){
         title = "NQueens";
     }else if(arq == "arq_funcAlgebrica"){
         title = "Função Algébrica";
     }else if(arq == "arq_Radios"){
         title = "Radios";
+    }else if(arq == "arq_mapaRobo"){
+        cin >> line >> column;
+        
+        map = vector<vector<int> >(line, vector<int>(column, 0));;
+        
+        for(int i = 0; i < line; i++){
+            for (int j = 0; j < column; j++){
+                cin >> map[i][j];
+            }            
+        }
     }
 
     Best_Individual BI;
@@ -79,6 +94,11 @@ int main(int argc, char const * argv[]){
         cerr << "Iteração: " << i << endl;
         ga -> start_generation();
 
+        for(int i = 0; i < ga -> population_size; i++){
+            ga -> population[i].map = map;
+        }
+        
+
         ga -> melhor.push_back(vector<double>());
         ga -> media.push_back(vector<double>());
         ga -> pior.push_back(vector<double>());
@@ -90,7 +110,7 @@ int main(int argc, char const * argv[]){
             Individual<int> best;
 
             if(ga -> elitismo){
-                best = melhor(ga);
+                best = getBest(ga);
             }            
 
 
@@ -197,7 +217,6 @@ int main(int argc, char const * argv[]){
 
         };
         
-        // config << lambda_radios(best_solution) << endl;
         config << "Standard=" << st << endl;
         config << "Luxuosos=" << lt << endl;
 
@@ -224,7 +243,6 @@ int main(int argc, char const * argv[]){
             return cos(20*x) - (abs(x)/2.0) + (pow(x, 3)/4.0);
         };
                 
-        // config << lambda_funcao(best_solution) << endl;
         config << "X = " << val_x << endl;
     }
             

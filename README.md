@@ -12,7 +12,7 @@
 
 <!--ts-->
    * [Dupla](#Dupla)
-   * [File](#Entrada-do-Arquivo)
+   * [Arquivo de Entrada](#Arquivo-de-Entrada)
    * [Gene](#Gene)
    * [Seleção](#Seleção)
    * [Crossover](#Crossover)
@@ -20,7 +20,7 @@
    * [Execução](#Execução)
 <!--te-->
 
-## Entrada do arquivo
+## Arquivo de Entrada
 
 `num_Generation int`
 
