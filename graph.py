@@ -47,7 +47,7 @@ for i in range(0, len(solucoes_pior)):
 limit_worse = worse - 0.05
 limit_best = best + 0.05
 limit_x_low = -50
-limit_x_high = 5050
+limit_x_high = 550
 
 solution = 'Media da Fitness do melhor individuo: '+ str(best)
 

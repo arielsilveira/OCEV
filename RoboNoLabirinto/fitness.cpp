@@ -53,7 +53,7 @@ void fitness(GA* &ga){
             vector<int> possible_move = movimento(x, y, visited, ga);
             if(possible_move.size() == 0){
                 blocked = true;
-                j = ga -> gene_size;
+                j = ga -> gene_size - 1;
                 break;
             }
             int c = possible_move[ga -> population[i].chromossomo[j] % possible_move.size()];
@@ -90,8 +90,8 @@ void fitness(GA* &ga){
         double fitness_manhattan = 1 - manhattan_distance/(double)(48.0);
         double p1, p2, p3, p4;
         // if(ng < ga -> generation/3.0){
-        p1 = 0.5;
-        p2 = 0.1;
+        p1 = 0.4;
+        p2 = 0.2;
         p3 = 0.4;
         
         // }else if(ng < 2*ga -> generation/3.0){
@@ -106,14 +106,13 @@ void fitness(GA* &ga){
         // }
         double move = (ga -> gene_size - j)/(double)ga -> gene_size;
         ga -> population[i].solution = (p1*fitcult + p2*fitness_manhattan + p3*fitness_move);
+        ga -> population[i].FO = j;
         if(blocked){
-            cout << "Antes do blocked: " << ga -> population[i].solution << endl;
             ga -> population[i].solution *= 0.1;
-            cout << "Depois do blocked: " << ga -> population[i].solution << endl;
         }
 
         if(x == ga -> finish_x && y == ga -> finish_y){
-            ga -> population[i].solution += pow(62.0/j, 3);
+            ga -> population[i].solution *= pow(62.0/j, 2);
         }
 
 

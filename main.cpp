@@ -205,7 +205,7 @@ int main(int argc, char const * argv[]){
         fitness(ga);
 
         for(int j = 0; j < ga -> generation; j++){
-            cerr << "Geração: " << j << endl;
+            // cerr << "Geração: " << j << endl;
             ga -> geracao = j+1;
             sf::Event event;
 
@@ -244,22 +244,22 @@ int main(int argc, char const * argv[]){
                     draw(window, best, ga);
                 
             }            
-            double fit_min = ga -> population[0].solution;
-            double fit_max = ga -> population[0].solution;
-            for(int k = 0; k < ga -> population_size; k++){
-                fit_min = min(fit_min, ga -> population[k].solution);
-                fit_max = max(fit_max, ga -> population[k].solution);
-            }
+            // double fit_min = ga -> population[0].solution;
+            // double fit_max = ga -> population[0].solution;
+            // for(int k = 0; k < ga -> population_size; k++){
+            //     fit_min = min(fit_min, ga -> population[k].solution);
+            //     fit_max = max(fit_max, ga -> population[k].solution);
+            // }
 
-            cout << "Fitness antes: " << fit_max - fit_min << endl;
+            // cout << "Fitness antes: " << fit_max - fit_min << endl;
             ga -> controlaPressaoSeletiva();
-            fit_min = ga -> population[0].solution;
-            fit_max = ga -> population[0].solution;
-            for(int k = 0; k < ga -> population_size; k++){
-                fit_min = min(fit_min, ga -> population[k].solution);
-                fit_max = max(fit_max, ga -> population[k].solution);
-            }
-            cout << "Fitness depois: " << fit_max - fit_min << endl << endl;
+            // fit_min = ga -> population[0].solution;
+            // fit_max = ga -> population[0].solution;
+            // for(int k = 0; k < ga -> population_size; k++){
+            //     fit_min = min(fit_min, ga -> population[k].solution);
+            //     fit_max = max(fit_max, ga -> population[k].solution);
+            // }
+            // cout << "Fitness depois: " << fit_max - fit_min << endl << endl;
             selecao_menu(ga);
             
             crossover_menu(ga);
@@ -275,18 +275,18 @@ int main(int argc, char const * argv[]){
                 swap_worse(ga, best);
             }
             
-            // final_result(ga, i);
+            final_result(ga, i);
 
 
 
-            // for (int l = 0; l < ga -> population_size; l++){
-            //     if(ga -> population[l].solution > BI.solution){
-            //         BI.solution = ga -> population[l].solution;
-            //         BI.chromossomo = ga -> population[l].chromossomo;
-            //         BI.colisao = ga -> population[l].collision;
-            //         BI.FO = ga -> population[l].FO;
-            //     }
-            // }
+            for (int l = 0; l < ga -> population_size; l++){
+                if(ga -> population[l].solution > BI.solution){
+                    BI.solution = ga -> population[l].solution;
+                    BI.chromossomo = ga -> population[l].chromossomo;
+                    BI.colisao = ga -> population[l].collision;
+                    BI.FO = ga -> population[l].FO;
+                }
+            }
 
             // for(int m = 0; m < ga -> map.size(); m++){
             //     for(int n = 0; n < ga -> map[m].size(); n++){
@@ -310,21 +310,20 @@ int main(int argc, char const * argv[]){
     }
     
     bool flag = true;
-    while(flag){
-        sf::Event event;
+    // while(flag){
+    //     sf::Event event;
 
-        while(window.pollEvent(event)){
-            if(event.type == sf::Event::Closed){
-                flag = false;
-            }
-        }
-        draw(window, best, ga);
+    //     while(window.pollEvent(event)){
+    //         if(event.type == sf::Event::Closed){
+    //             flag = false;
+    //         }
+    //     }
+    //     draw(window, best, ga);
 
-    }
+    // }
     
     
 
-    /*
     cerr << (media_time/ga->num_execucao)  << endl;  
 
     ofstream saida_melhor;
@@ -366,6 +365,7 @@ int main(int argc, char const * argv[]){
     config << "Objective Function=";
     
 
+    /*
     if(arq == "arq_nqueen"){
         config << BI.FO << endl;
         config << "Quantidade de colisão=" << BI.colisao << endl;
@@ -421,7 +421,7 @@ int main(int argc, char const * argv[]){
                 
         config << "X = " << val_x << endl;
     }
-            
+            */
     config << "Fitness Function=" << BI.solution << endl;
 
     double media = 0;
@@ -453,17 +453,17 @@ int main(int argc, char const * argv[]){
     config << "Desvio=" << desvio << endl;
 
     //Printando o tabuleiro
-    for(int i = 0; i < BI.chromossomo.size(); i++){
-            config << "| " ;
-        for(int j = 0; j < BI.chromossomo.size(); j++){
-            if(BI.chromossomo[i] == j){
-                config << "R" << " " ;
-            }else{
-                config << "-" << " " ;
-            }
-        }
-        config << "|" << endl;
-    }
-    */
+    // for(int i = 0; i < BI.chromossomo.size(); i++){
+    //         config << "| " ;
+    //     for(int j = 0; j < BI.chromossomo.size(); j++){
+    //         if(BI.chromossomo[i] == j){
+    //             config << "R" << " " ;
+    //         }else{
+    //             config << "-" << " " ;
+    //         }
+    //     }
+    //     config << "|" << endl;
+    // }
+    // */
     return 0;
 }
