@@ -87,7 +87,7 @@ void selecao_torneio(GA* &ga){
 // ------------------------------------------------------- //
 
 void selecao_roleta(GA* &ga){
-    double T;
+    double T = 0;
     vector<double> result(ga -> population_size);
     int old_individuo = -1;
     vector<int> new_individuo(ga -> population_size);
@@ -122,7 +122,7 @@ void selecao_roleta(GA* &ga){
                     incremento += result[j];
                 }
                 
-                if(incremento > auxiliar_random){
+                if(incremento >= auxiliar_random){
                     new_individuo[i] = j; 
                     old_individuo = j; 
                     break;

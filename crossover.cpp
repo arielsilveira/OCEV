@@ -259,21 +259,24 @@ void uniform(GA* &ga){
 
     double rnd = 0.0;
     vector<Individual<int>> new_population(ga->population_size);
-    new_population = ga->population;
+    // new_population = ga->population;
 
     for(int i = 0; i < ga->population_size; i++){
         new_population[i] = ga->population[i];
     }
 
-    #pragma omp parallel for
+    // #pragma omp parallel for
     for(int i = 0; i < ga->population_size; i+=2){
-        for(int j = 0; j < ga->gene_size; j++){
-            double rnd = dist_real(0, 1);
-            if(rnd <= 0.5){
-                int f1 = new_population[i].chromossomo[j];
-                int f2 = new_population[i+1].chromossomo[j];
-                new_population[i].chromossomo[j] = f2;
-                new_population[i+1].chromossomo[j] = f1;
+        double rnd = dist_real(0, 1);
+        if(rnd <= ga -> crossover_probability){
+            for(int j = 0; j < ga->gene_size; j++){
+                rnd = dist_real(0, 1);
+                if(rnd <= 0.5){
+                    int f1 = new_population[i].chromossomo[j];
+                    int f2 = new_population[i+1].chromossomo[j];
+                    new_population[i].chromossomo[j] = f2;
+                    new_population[i+1].chromossomo[j] = f1;
+                }
             }
         }
     }

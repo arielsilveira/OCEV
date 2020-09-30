@@ -9,12 +9,14 @@ private:
 
 public:
     vector<T> chromossomo;
-    vector<vector<int> > map;
+    vector<int> move;
+    vector<vector<double> > map_cult;
     string gene_type;
 
     int min, max;
+    int x, y;
     int collision;
-
+    int cnt_move;
     double FO;
     double solution = 0.0;
 
@@ -26,6 +28,10 @@ public:
         this -> max = max;
         this -> collision = 0;
         this -> FO = 0;
+        this -> move = vector<int>(gene_size, 0);
+        this -> x = 0;
+        this -> y = 0;
+        this -> cnt_move = 0;
 
         chromossomo = vector<T>(gene_size);
 
@@ -128,9 +134,13 @@ public:
     int min;
     int max;
     int v;
+    int line;
+    int column;
     int qnt_selecionado;
     int num_execucao;
-
+    int init_x, init_y;
+    int finish_x, finish_y;
+    int geracao;
     double k;
     double crossover_probability;
     double mutation_probability;
@@ -143,6 +153,8 @@ public:
 
     vector<Individual <int>> population;
     vector<int> select;
+    vector<vector<int> > map;
+    vector<vector<double> > map_cult;
 
     vector<vector<double>> melhor;
     vector<vector<double>> media;
@@ -168,7 +180,14 @@ public:
         this -> qnt_selecionado = qnt_selecionado;
         this -> elitismo = elitismo;
         this -> num_execucao = num_execucao;
-        
+        this -> init_x = 0;
+        this -> init_y = 0;
+        this -> finish_x = 0;
+        this -> finish_y = 0;
+        this -> line = 0;
+        this -> column = 0;
+        this -> geracao = 0;
+
         vector<int> aux(population_size, 0);
 
         select = aux;
@@ -188,6 +207,42 @@ public:
     void print_select(){
         for(int i = 0; i < population_size; i++){
             cout << "Indivíduo " << select[i] << ": " << population[select[i]].solution << endl;
+        }
+    }
+
+    void reset_generation(){
+        for(int i = 0; i < population_size; i++){
+            population[i].map_cult = vector<vector<double> >(line, vector<double>(column, 0.0));
+        }
+    }
+
+    void controlaPressaoSeletiva(){
+        double favg = 0, f_min = this -> population[0].solution, f_max = this -> population[0].solution;
+        for(int i = 0; i < this -> population_size; i++){
+            double u = this -> population[i].solution;
+            favg += u;
+            if(u > f_max) f_max = u;
+            if(u < f_min) f_min = u;
+        }
+        favg /= double(this -> population_size);
+        // std::cerr << "FAVG: " << favg << std::endl;
+        double c;
+        c = 1.2 + (2 - 1.2) * (this -> geracao / double(this -> generation));
+
+        double alfa, beta;
+        if(f_min > (c * favg - f_max) / double(c - 1)){
+            alfa = (favg * (c - 1)) / double(f_max - favg);
+            beta = (favg * (f_max - c * favg) / double(f_max - favg));
+        } else {
+            alfa = favg / double(favg - f_min);
+            beta = (-f_min * favg) / (favg - f_min);
+        }
+        for(int i = 0; i < this -> population_size; i++){
+            double n_value = alfa * (this -> population[i].solution + beta);
+            if(n_value < 0){
+                n_value = 0;
+            }
+            this -> population[i].solution = n_value + 1e-6;
         }
     }
 

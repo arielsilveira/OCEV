@@ -37,7 +37,7 @@ void mutacao_swap(GA* &ga){
         for(int j = 0; j < ga -> gene_size; j++){
             double rnd = dist_real(0, 1);
 
-            if(rnd <= ga->mutation_probability){
+            if(rnd <= ga -> mutation_probability){
                 int pos = 0;
 
                 do{

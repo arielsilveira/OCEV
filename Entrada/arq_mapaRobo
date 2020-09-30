@@ -1,11 +1,11 @@
 num_execucao 1
 num_Generation 1000
-population_Size 30
+population_Size 50
 gene_Size 100
 gene_Type INT 0 3
-crossover_Probability 0.90
-crossover_Type PMX
-mutation_Probability 0.02
-mutation_Type SWAP_MUTATION
-selection_Type TORNEIO 1 2
+crossover_Probability 0.9
+crossover_Type UNIFORME
+mutation_Probability 0.01
+mutation_Type RANDOM
+selection_Type ROLETA
 ELITISMO 1

@@ -130,11 +130,6 @@ void print_best_worse(GA* &ga){
     ga -> population[index_best].print_individual();
     cout << endl;
 
-    // cout << "Pior indivíduo: " << index_worse << endl;
-    // cout << "Valor fitness: " << val_worse << endl;
-
-    // ga -> population[index_worse] -> print_individual();
-
 }
 
 void print_individuals(GA* &ga){

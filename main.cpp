@@ -1,8 +1,89 @@
 #include "GA/GA.hpp"
 #include <chrono> 
 #include <omp.h>
+#include <SFML/Graphics.hpp>
+#include <unistd.h>
 
 using namespace std::chrono; 
+
+double position = 0;
+
+void draw(sf::RenderWindow &window, Individual<int> best, GA* &ga){
+    int rect_size = 15;
+
+    sf::RectangleShape rect(sf::Vector2f(rect_size, rect_size));
+    rect.setOutlineThickness(0.75f);
+    rect.setOutlineColor(sf::Color(122,122,122));
+    rect.setOrigin(sf::Vector2f(0,0));
+    vector<pair<int, int> > move = {
+            {-1,0}, 
+            {1,0}, 
+            {0,1}, 
+            {0,-1}
+        };
+
+    int x_best = ga -> init_x;
+    int y_best = ga -> init_y;
+
+    cerr << "Fitness: " <<  best.solution << endl;
+    cerr << "Move: " << best.cnt_move << endl;
+
+    map<pair<int, int>, int> visited;
+    map<pair<int, int>, int>::iterator find_visited;
+    visited[{ga -> init_x, ga-> init_y}] = 1;
+
+    for(int k = 0; k < ga -> gene_size; k++){
+        sf::Event event;
+
+        while(window.pollEvent(event)){
+            if(event.type == sf::Event::Closed){
+                exit(0);
+            }
+        }
+        // int move_x = move[ best.chromossomo[k] ].first;
+        // int move_y = move[ best.chromossomo[k] ].second;
+
+        // if(ga -> map[move_x + x_best][ move_y + y_best] == 1){
+        //     visited[{move_x + x_best, move_y + y_best}]++;
+        //     x_best += move_x;
+        //     y_best += move_y;
+        // }
+        
+        window.clear(sf::Color::White);
+        for(int i = 0; i < ga -> line; i++){
+            for(int j = 0; j < ga -> column; j++){
+                rect.setPosition(rect_size * j, rect_size * i);
+
+                if(ga -> map[i][j] == 0){
+                    rect.setFillColor(sf::Color::Black);
+                }else if(ga -> map[i][j] == 1){
+                    rect.setFillColor(sf::Color(255, 0, 0, 255 * ga -> map_cult[i][j]));
+
+                }else if(ga -> map[i][j] == 2){
+                    rect.setFillColor(sf::Color::Green);
+
+                }else if(ga -> map[i][j] == 3){
+                    rect.setFillColor(sf::Color::Red);
+                }
+
+                // if(i == x_best && j == y_best){
+                //     rect.setFillColor(sf::Color::Blue);
+                // }
+
+                // if(i == best.x && j == best.y){
+                //     rect.setFillColor(sf::Color::Magenta);
+                // }
+
+                window.draw(rect);
+            }
+        }
+        
+        window.display();
+        // sf::sleep(sf::milliseconds(1000));
+        
+    }
+
+}
 
 
 class Best_Individual{
@@ -21,8 +102,8 @@ public:
 };
 
 void swap_worse(GA* &ga, Individual<int> best){
-    double worse = 10;
-    int index = -1;
+    double worse = ga -> population[0].solution;
+    int index = 0;
 
     for(int i = 0; i < ga -> population_size; i++){
         if(ga -> population[i].solution < worse){
@@ -37,14 +118,12 @@ void swap_worse(GA* &ga, Individual<int> best){
 Individual<int> getBest(GA* &ga){
     double best_solution = 0;
     Individual<int> best;
-
     for(int i = 0; i < ga -> population_size; i++){
         if(ga -> population[i].solution > best_solution){
             best_solution = ga -> population[i].solution;
             best = ga -> population[i];
         }
     }
-
     return best;
 }
 
@@ -62,80 +141,161 @@ int main(int argc, char const * argv[]){
     string arq = argv[1];
 
     int line, column;
-
-
+    int init_x, init_y;
+    int finish_x, finish_y;
+    
     if(arq == "arq_Nqueen"){
         title = "NQueens";
     }else if(arq == "arq_funcAlgebrica"){
         title = "Função Algébrica";
     }else if(arq == "arq_Radios"){
         title = "Radios";
-    }else if(arq == "arq_mapaRobo"){
-        cin >> line >> column;
-        
-        map = vector<vector<int> >(line, vector<int>(column, 0));;
-        
-        for(int i = 0; i < line; i++){
-            for (int j = 0; j < column; j++){
-                cin >> map[i][j];
-            }            
-        }
     }
 
     Best_Individual BI;
 
     GA *ga;
     ga = read_file(argv[1]);
+    cin >> ga -> line >> ga -> column;
+
+
+    for(int i = 0; i < ga -> line; i++){
+        ga -> map.push_back(vector<int>());
+        ga -> map_cult.push_back(vector<double>());
+        for(int j = 0; j < ga -> column; j++){
+            int l;
+            cin >> l;
+            // if(l == 0 && i != 0 && i != ga ->line-1 && j != 0 && j != ga -> column-1){
+            //     l = 1;
+            // }
+            ga -> map[i].push_back(l);
+            ga -> map_cult[i].push_back(0.0);
+            
+            if(l == 2){
+                ga -> init_x = i;
+                ga -> init_y = j;
+                // cout << "x" << i << endl;
+                // cout << "y" << j << endl;
+            }
+
+            if(l == 3){
+                ga -> finish_x = i;
+                ga -> finish_y = j;
+            }
+        }
+    }
 
     double media_time = 0.0;
+
+	sf::RenderWindow window(sf::VideoMode(380, 460), "Robo no Labirinto");
+    bool open = true;
+
+    Individual<int> best;
     
     for(int i = 0; i < ga -> num_execucao; i++){
         auto start = high_resolution_clock::now(); 
         cerr << "Iteração: " << i << endl;
         ga -> start_generation();
 
-        for(int i = 0; i < ga -> population_size; i++){
-            ga -> population[i].map = map;
-        }
-        
-
         ga -> melhor.push_back(vector<double>());
         ga -> media.push_back(vector<double>());
         ga -> pior.push_back(vector<double>());
         ga -> melhor_media.push_back(vector<double>());
-
+        ga -> reset_generation();
         fitness(ga);
 
         for(int j = 0; j < ga -> generation; j++){
-            Individual<int> best;
+            cerr << "Geração: " << j << endl;
+            ga -> geracao = j+1;
+            sf::Event event;
+
+            while(window.pollEvent(event)){
+                if(event.type == sf::Event::Closed){
+                    exit(0);
+                }
+            }
 
             if(ga -> elitismo){
                 best = getBest(ga);
+
+                // if(x_final == best.x && y_final == best.y && (x_final != ga -> finish_x || y_final != ga -> finish_y)){
+                //     position += 0.02;
+
+                // }else{
+                //     position = 0;
+                // }
+                // auto dist_real = [](int min, int max) -> double {
+                //         random_device g_rd;
+                //         mt19937 g_e(g_rd());
+                //         uniform_real_distribution<> g_dist(min, max);
+                    
+                //         return g_dist(g_e);
+                //     };
+
+                // if(position >= 0.3 && position >= dist_real(0, 1) && (x_final != ga -> finish_x || y_final != ga -> finish_y)){
+                //     best.solution /= 2;
+                //     position = 0;
+                //     cerr << "TROCOU" << endl;
+                // }
+
+                // x_final = best.x;
+                // y_final = best.y;
+                if(j % 25 == 0)
+                    draw(window, best, ga);
+                
             }            
+            double fit_min = ga -> population[0].solution;
+            double fit_max = ga -> population[0].solution;
+            for(int k = 0; k < ga -> population_size; k++){
+                fit_min = min(fit_min, ga -> population[k].solution);
+                fit_max = max(fit_max, ga -> population[k].solution);
+            }
 
-
+            cout << "Fitness antes: " << fit_max - fit_min << endl;
+            ga -> controlaPressaoSeletiva();
+            fit_min = ga -> population[0].solution;
+            fit_max = ga -> population[0].solution;
+            for(int k = 0; k < ga -> population_size; k++){
+                fit_min = min(fit_min, ga -> population[k].solution);
+                fit_max = max(fit_max, ga -> population[k].solution);
+            }
+            cout << "Fitness depois: " << fit_max - fit_min << endl << endl;
             selecao_menu(ga);
             
             crossover_menu(ga);
 
             mutacao_menu(ga);
 
+            ga -> reset_generation();
             fitness(ga);
             
+
+
             if(ga -> elitismo){
                 swap_worse(ga, best);
             }
+            
+            // final_result(ga, i);
 
-            final_result(ga, i);
 
-            for (int l = 0; l < ga -> population_size; l++){
-                if(ga -> population[l].solution > BI.solution){
-                    BI.solution = ga -> population[l].solution;
-                    BI.chromossomo = ga -> population[l].chromossomo;
-                    BI.colisao = ga -> population[l].collision;
-                    BI.FO = ga -> population[l].FO;
-                }
-            }
+
+            // for (int l = 0; l < ga -> population_size; l++){
+            //     if(ga -> population[l].solution > BI.solution){
+            //         BI.solution = ga -> population[l].solution;
+            //         BI.chromossomo = ga -> population[l].chromossomo;
+            //         BI.colisao = ga -> population[l].collision;
+            //         BI.FO = ga -> population[l].FO;
+            //     }
+            // }
+
+            // for(int m = 0; m < ga -> map.size(); m++){
+            //     for(int n = 0; n < ga -> map[m].size(); n++){
+            //         cout << setprecision(2) << fixed << ga -> map_cult[m][n] << " ";
+            //     }
+            //     cout << endl;
+            // }
+
+            // cout << endl << endl;
 
         }
 
@@ -148,7 +308,23 @@ int main(int argc, char const * argv[]){
         media_time += duration.count();
         cerr << "Duração= " << duration.count() << endl;
     }
+    
+    bool flag = true;
+    while(flag){
+        sf::Event event;
 
+        while(window.pollEvent(event)){
+            if(event.type == sf::Event::Closed){
+                flag = false;
+            }
+        }
+        draw(window, best, ga);
+
+    }
+    
+    
+
+    /*
     cerr << (media_time/ga->num_execucao)  << endl;  
 
     ofstream saida_melhor;
@@ -288,6 +464,6 @@ int main(int argc, char const * argv[]){
         }
         config << "|" << endl;
     }
-
+    */
     return 0;
 }
